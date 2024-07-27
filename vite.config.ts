@@ -14,6 +14,7 @@ export default defineConfig({
     },
   },
   server: {
-    port: 3000,
+    port: parseInt(process.env.PORT || "3000"),
+    host: true,
   },
 } as UserConfig);

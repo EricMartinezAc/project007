@@ -1,8 +1,0 @@
-services:
-  - type: web
-    name: project007
-    env: node
-    plan: starter
-    buildCommand: "npm run build"
-    startCommand: "npm run dev"
-    port: 3000
