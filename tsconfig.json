@@ -11,6 +11,8 @@
     "skipLibCheck": true, // Opcional: omite la comprobación de tipos de los archivos de declaración
     "forceConsistentCasingInFileNames": true, // Opcional: fuerza el uso consistente de mayúsculas y minúsculas en los nombres de archivos
     "allowImportingTsExtensions": true,
+    "emitDeclarationOnly": true,
+    "declaration": true,
     "baseUrl": "./", // Opcional: establece la raíz base para las importaciones
     "paths": {
       "*": ["node_modules/*"] // Opcional: configura las rutas de módulo
