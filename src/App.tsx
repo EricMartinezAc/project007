@@ -1,22 +1,15 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage'; 
+import React from "react";
+import { AuthProvider, useAuth } from "./AuthProvider";
+import AppRouter from "./routers/AppRouter";
 
-import { firebaseInit } from './config/firebaseConfig';
-
-import './App.css'
-
-function App() {
-  const [count, setCount] = useState(0)
-  const { app, storage } = firebaseInit();
+const App: React.FC = () => {
+  const { user, signIn } = useAuth();
 
   return (
-    <>
+    <AuthProvider>
+      {user ? <AppRouter /> : <button onClick={signIn}>Sign In</button>}
+    </AuthProvider>
+  );
+};
 
-      <h1>Vite + React</h1>
-    </>
-  )
-}
-
-export default App
+export default App;

@@ -1,51 +1,15 @@
-import { Preloader } from "@/components/common";
-import "normalize.css/normalize.css";
+// main.ts
 import React from "react";
-import { render } from "react-dom";
-import "react-phone-input-2/lib/style.css";
-import {
-  onAuthStateFail,
-  onAuthStateSuccess,
-} from "@/redux/actions/authActions";
-import configureStore from "@/redux/store/store";
-import "@/styles/style.scss";
-import WebFont from "webfontloader";
-import App from "./App";
-import firebase from "@/services/firebase";
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css";
+import { firebaseInit } from "./config/firebaseConfig"; // Importa tu inicialización de Firebase
 
-WebFont.load({
-  google: {
-    families: ["Tajawal"],
-  },
-});
+// Inicializa Firebase
+firebaseInit();
 
-const { store, persistor } = configureStore();
-const root = document.getElementById("app");
-
-// Render the preloader on initial load
-render(<Preloader />, root);
-
-firebase.auth.onAuthStateChanged((user) => {
-  if (user) {
-    console.log(user);
-    store.dispatch(onAuthStateSuccess(user));
-  } else {
-    console.log("No user");
-    store.dispatch(onAuthStateFail("Failed to authenticate"));
-  }
-  // then render the app after checking the auth state
-  render(<App store={store} persistor={persistor} />, root);
-});
-
-if (process.env.NODE_ENV === "production" && "serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("/sw.js")
-      .then((registration) => {
-        console.log("SW registered: ", registration);
-      })
-      .catch((registrationError) => {
-        console.log("SW registration failed: ", registrationError);
-      });
-  });
-}
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
