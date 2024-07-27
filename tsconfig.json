@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es5",                       // Opcional: especifica la versión de ECMAScript a la que se debe compilar el código
+    "lib": ["dom", "dom.iterable", "esnext"], // Opcional: especifica las bibliotecas a incluir en la compilación
+    "allowJs": true,                      // Permite compilar archivos .js
+    "jsx": "react-jsx",                   // Permite usar JSX en archivos .tsx
+    "module": "esnext",                   // Opcional: especifica el tipo de módulo
+    "moduleResolution": "node",           // Opcional: especifica la resolución de módulos
+    "strict": true,                       // Opcional: activa todas las opciones de comprobación estricta
+    "esModuleInterop": true,              // Permite interoperabilidad entre módulos ES y CommonJS
+    "skipLibCheck": true,                 // Opcional: omite la comprobación de tipos de los archivos de declaración
+    "forceConsistentCasingInFileNames": true, // Opcional: fuerza el uso consistente de mayúsculas y minúsculas en los nombres de archivos
+    "baseUrl": "./",                      // Opcional: establece la raíz base para las importaciones
+    "paths": {
+      "*": ["node_modules/*"]             // Opcional: configura las rutas de módulo
+    }
+  },
+  "include": [
+    "src/**/*"                           // Incluye todos los archivos en la carpeta src
+  ],
+  "exclude": [
+    "node_modules",                      // Excluye la carpeta node_modules
+    "**/*.test.ts", "**/*.test.tsx"      // Opcional: excluye archivos de prueba
+  ]
+}
