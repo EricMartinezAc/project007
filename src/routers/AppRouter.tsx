@@ -2,9 +2,9 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Componentes
-import Inicio_ from "../view/Inicio/Inicio";
-import Singin_ from "../view/Singing/Singin";
-import Dashboard_ from "../view/Dashboard/Dashboard";
+import Inicio_ from "../views/Inicio/Inicio";
+import Singin_ from "../views/Singing/Singin";
+import Dashboard_ from "../views/Dashboard/Dashboard";
 
 // Tipos para props (si es necesario, puedes ajustar según lo que necesites)
 interface AppProps {}
