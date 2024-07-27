@@ -1,10 +1,7 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from "vite";
 import path from "path";
 import react from "@vitejs/plugin-react";
 
-import { UserConfig } from "vite";
-
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   envPrefix: "VITE_",
@@ -17,4 +14,8 @@ export default defineConfig({
     port: parseInt(process.env.PORT || "3000"),
     host: true,
   },
-} as UserConfig);
+  build: {
+    outDir: "build",
+    sourcemap: true,
+  },
+});
