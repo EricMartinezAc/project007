@@ -1,16 +1,20 @@
 import React, { createContext, useContext, ReactNode, useState } from "react";
-import Firebase from "./server/services/firebase.resolver"; // Importa la clase Firebase
+import Firebase from "./server/services/firebase.resolver";
+import { firebaseauthDTO } from "./server/dto/firebaseAuthDTO";
 
 const firebase = new Firebase();
 
+interface User {
+  email: string;
+}
+
 // Define el tipo para el estado de autenticación
 interface AuthContextType {
-  user: any; // TODO más específico con el tipo del usuario
-  signIn: () => void;
+  user: User | null;
+  signIn: (credentials: firebaseauthDTO) => void;
   signOut: () => void;
 }
 
-// Define el valor por defecto del contexto
 const defaultAuthContextValue: AuthContextType = {
   user: null,
   signIn: () => {},
@@ -20,20 +24,16 @@ const defaultAuthContextValue: AuthContextType = {
 // Crea el contexto
 const AuthContext = createContext<AuthContextType>(defaultAuthContextValue);
 
-// Crea un proveedor para el contexto
 interface AuthProviderProps {
   children: ReactNode;
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
 
-  const handleSignIn = async () => {
+  const handleSignIn = async (credentials: firebaseauthDTO) => {
     try {
-      const result = await firebase.signIn({
-        email: "user@example.com",
-        password: "password123",
-      });
+      const result = await firebase.signIn(credentials);
       setUser(result.user);
     } catch (error) {
       console.error("Error signing in:", error);
