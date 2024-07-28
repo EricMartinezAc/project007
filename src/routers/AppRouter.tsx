@@ -1,3 +1,4 @@
+// AppRouter.tsx
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -5,40 +6,39 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "../views/Home";
 import Singin_ from "../views/Singing/Singin";
 import Dashboard_ from "../views/Dashboard/Dashboard";
-
-import { AuthProvider } from "../AuthProvider";
+import Navigation from "../components/common/Navigation";
+import { Basket } from "../components/basket";
 
 // Tipos para props
-interface AppProps {}
+interface AppProps {
+  navigate: (path: string) => void;
+}
 
-const App: React.FC<AppProps> = () => {
+const AppRouter: React.FC<AppProps> = ({ navigate }) => {
   return (
-    <>
-      <AuthProvider>
-        <div className="w-screen h-screen p-5">
-          {/* Limitaciones de vistas */}
-          <div className="w-full h-full md:hidden bg-red-500">
-            <p>
-              Tu dispositivo no cumple con las características necesarias para
-              la version web.
-              <br />
-              <b>Ponte en contacto con el proveedor del servicio.</b>
-            </p>
-          </div>
-          {/* Renderización de vistas */}
-          <div className="w-full h-full md:block ms:hidden">
-            <Router>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/Singin" element={<Singin_ />} />
-                <Route path="/Dashboard" element={<Dashboard_ />} />
-              </Routes>
-            </Router>
-          </div>
+    <Router>
+      <div className="w-screen h-screen p-5 onlyweb">
+        <div className="NoRendereable">
+          <p>
+            Tu dispositivo no cumple con las características necesarias para la
+            versión web.
+            <br />
+            <b>Ponte en contacto con el proveedor del servicio.</b>
+          </p>
         </div>
-      </AuthProvider>
-    </>
+        <div className="Renderable">
+          <Navigation />
+          <Basket />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/Singin" element={<Singin_ />} />
+            <Route path="/Dashboard" element={<Dashboard_ />} />
+            {/* Asegúrate de agregar todas las rutas necesarias aquí */}
+          </Routes>
+        </div>
+      </div>
+    </Router>
   );
 };
 
-export default App;
+export default AppRouter;

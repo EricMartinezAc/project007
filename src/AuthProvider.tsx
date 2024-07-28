@@ -11,12 +11,14 @@ interface User {
 // Define el tipo para el estado de autenticación
 interface AuthContextType {
   user: User | null;
+  firebase: any;
   signIn: (credentials: firebaseauthDTO) => void;
   signOut: () => void;
 }
 
 const defaultAuthContextValue: AuthContextType = {
   user: null,
+  firebase: firebase,
   signIn: () => {},
   signOut: () => {},
 };
@@ -51,7 +53,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, signIn: handleSignIn, signOut: handleSignOut }}
+      value={{ user, signIn: handleSignIn, signOut: handleSignOut, firebase }}
     >
       {children}
     </AuthContext.Provider>
