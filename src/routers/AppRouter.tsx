@@ -15,9 +15,9 @@ const App: React.FC<AppProps> = () => {
   return (
     <>
       <AuthProvider>
-        <div className="w-screen h-screen bg-gray-100">
+        <div className="w-screen h-screen p-5">
           {/* Limitaciones de vistas */}
-          <div className="md:hidden">
+          <div className="w-full h-full md:hidden bg-red-500">
             <p>
               Tu dispositivo no cumple con las características necesarias para
               la version web.
@@ -26,13 +26,15 @@ const App: React.FC<AppProps> = () => {
             </p>
           </div>
           {/* Renderización de vistas */}
-          <Router>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/Singin" element={<Singin_ />} />
-              <Route path="/Dashboard" element={<Dashboard_ />} />
-            </Routes>
-          </Router>
+          <div className="w-full h-full md:block ms:hidden">
+            <Router>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/Singin" element={<Singin_ />} />
+                <Route path="/Dashboard" element={<Dashboard_ />} />
+              </Routes>
+            </Router>
+          </div>
         </div>
       </AuthProvider>
     </>
