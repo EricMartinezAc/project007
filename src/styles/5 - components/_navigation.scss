@@ -1,7 +1,7 @@
 .navigation {
   width: 100%;
-  height: 10rem;
-  background: $background-color;
+  height: min-content;
+  background: $black;
   display: flex;
   align-items: center;
   padding: .5rem 5rem;
@@ -96,7 +96,7 @@
 }
 
 .navigation-menu-link {
-  color: $heading-color;
+  color: $gray-20;
   padding: $xs-size $m-size;
   text-decoration: none;
   font-size: $font-small;
@@ -107,6 +107,7 @@
   &:hover {
     text-decoration: none;
     background: $background-color-01;
+    color: $naranyellow;
   }
 }
 

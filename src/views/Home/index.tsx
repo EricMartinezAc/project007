@@ -17,7 +17,7 @@ import MessageDisplay from "../../components/common/MessageDisplay";
 import { ProductShowcaseGrid } from "../../components/product";
 
 const Home = () => {
-  useDocumentTitle("Salinaka | Home");
+  useDocumentTitle("SIHENG | market and services");
   useScrollTop();
 
   const {

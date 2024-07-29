@@ -1,4 +1,152 @@
-/* src/index.css */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.img-promo{
+    width: 100%;
+    height: 70%;
+    z-index: 99;
+}
+.slider-button-mobile{
+    width: 100%;
+    height: min-content;
+    z-index: 99;
+    background-color: black;
+    color: #ddd;
+    display: flex ;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Organiza los elementos en una columna */
+}
+.logo-mobile{
+    margin-bottom: 20px;
+    width: 170px;
+    height: 170px;
+    padding: 0%;
+}
+
+.logo-mobile-menu{
+    margin-bottom: 20px;
+    position: relative;
+    top: 10px;
+    left: 180px;
+    width: 170px;
+    height: 170px;
+    padding: 0%;
+    z-index: -10;
+    opacity: 0.4;
+}
+/* nav.css */
+
+/* Botón para abrir el menú en móviles */
+.menu-toggle {
+    margin-bottom: 20px;
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    top: 10px;
+    left: 0px;
+    width: 100%;
+    height: 40px; 
+    background-color: chocolate;
+    color: white;
+    border: none;
+    padding: 0; 
+    cursor: pointer;
+    z-index: 999; 
+    border-radius: 0 5px 5px 0; /* Botón redondeado */
+    font-size: 1.2rem; /* Tamaño del texto */
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para mayor visibilidad */
+}
+
+/* Botón de cierre dentro del menú móvil */
+.menu-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 50px; /* Ancho fijo del botón */
+    height: 50px; /* Alto fijo del botón */
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 0; /* Elimina el padding para ajustar el tamaño */
+    cursor: pointer;
+    border-radius: 50%; /* Botón redondeado */
+    font-size: 1.2rem; /* Tamaño del texto */
+    display: flex; /* Flexbox para centrar el ícono */
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para mayor visibilidad */
+}
+
+/* Estilos para el menú móvil */
+.mobile-navigation {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(-100%); /* Oculto fuera de la pantalla */
+}
+
+.mobile-navigation.open {
+    display: block; /* Mostrar cuando está abierto */
+    transform: translateX(0); /* Mover a la vista */
+}
+
+.logo img {
+    display: block;
+    margin: 0 auto;
+}
+
+/* Menú de navegación móvil */
+.mobile-nav-menu {
+    list-style: none;
+    padding: 0;
+    margin: 60px 0 0;
+}
+
+.mobile-nav-menu li {
+    border-bottom: 1px solid #ddd;
+}
+
+.mobile-nav-menu li a {
+    display: block;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: black;
+}
+
+.mobile-nav-menu li a:hover {
+    background-color: #f0f0f0;
+}
+
+.mobile-actions {
+    margin-top: auto;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Mostrar el botón en móviles */
+@media (max-width: 1000px) {
+    .menu-toggle {
+        display: block; /* Mostrar el botón en pantallas móviles */
+        position: absolute;
+        top: 170px;
+        color: white;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+    }
+    .logo{
+        position: absolute;
+        top: 100px;
+        left: 10px;
+    
+    }
+}

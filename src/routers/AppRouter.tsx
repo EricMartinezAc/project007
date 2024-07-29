@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "../views/Home";
 import Singin_ from "../views/Singing/Singin";
 import Dashboard_ from "../views/Dashboard/Dashboard";
-import Navigation from "../components/common/Navigation";
+import { Navigation } from "../components/common";
 import { Basket } from "../components/basket";
 
 // Tipos para props
@@ -17,17 +17,17 @@ interface AppProps {
 const AppRouter: React.FC<AppProps> = ({ navigate }) => {
   return (
     <Router>
-      <div className="w-screen h-screen p-5 onlyweb">
-        <div className="NoRendereable">
+      <Navigation />
+      <div>
+        {/* <div className="NoRendereable">
           <p>
             Tu dispositivo no cumple con las características necesarias para la
             versión web.
             <br />
             <b>Ponte en contacto con el proveedor del servicio.</b>
           </p>
-        </div>
+        </div> */}
         <div className="Renderable">
-          <Navigation />
           <Basket />
           <Routes>
             <Route path="/" element={<Home />} />

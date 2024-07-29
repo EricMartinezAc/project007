@@ -8,6 +8,7 @@ import { createBrowserHistory } from "history";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor } from "./redux/store/store";
 import "./styles/style.scss";
+import "./index.css";
 
 // Obtener el elemento del DOM con id 'root'
 const rootElement = document.getElementById("root");

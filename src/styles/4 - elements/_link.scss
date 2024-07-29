@@ -1,8 +1,11 @@
 a {
   text-decoration: none;
-  color: $button-color;
+  color: $off-white;
 
   // &:hover {
   //   text-decoration: underline;
   // }
+}
+a:hover {
+  color: $off-black;
 }
