@@ -1,13 +1,12 @@
 import { Image } from "@nextui-org/react";
 import React from "react";
-import imgPromo from "../../static/images/9.png";
+import PropTypes from "prop-types";
 
-function Modal() {
-  return (
-    <div>
-      <Image src={imgPromo} alt="promo" className="img-promo" />
-    </div>
-  );
+function Modal(isOpen: boolean) {
+  return <div className={`${isOpen ? "block" : "hidden"}`}>Modal</div>;
 }
 
+Modal.propTypes = {};
+
 export default Modal;
+

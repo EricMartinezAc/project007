@@ -38,9 +38,6 @@ const MobileNavigation = ({
         <li>
           <Link to={ROUTE.MARKETPLACE}>MARKETPLACE</Link>
         </li>
-        <li>
-          <Link to={ROUTE.EQUIPMENTS}>EQUIPMENTS</Link>
-        </li>
       </ul>
       <div className="mobile-actions">
         <BasketToggle>
