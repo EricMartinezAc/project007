@@ -3,6 +3,7 @@ export const SHOP = "/Shop";
 export const JOBS = "/Jobs";
 export const PRODUCTS = "/Products";
 export const NEW = "/New";
+export const S_Liive = "/S_Liive";
 export const EQUIPMENTS = "/Equipments";
 export const MARKETPLACE = "/Marketplace";
 export const FEATURED_PRODUCTS = "/Shop/featured_products";

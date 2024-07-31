@@ -9,8 +9,9 @@ import {
   RECOMMENDED_PRODUCTS,
   BLACK_DAYS,
   NEW,
+  S_Liive,
 } from "../../constants/routes";
-import bannerImg from "../../static/images/banner-girl.png";
+import bannerImg from "../../static/images/she.png";
 import {
   useDocumentTitle,
   useFeaturedProducts,
@@ -65,6 +66,9 @@ const Home = () => {
           )}
         </div>
         <div className="banner">
+          <div className="banner-img">
+            <img src={bannerImg} alt="" />
+          </div>
           <div className="banner-desc">
             <h1 className="text-thin">
               <strong>Publica,</strong>
@@ -78,13 +82,10 @@ const Home = () => {
               productos favoritos.
             </p>
             <br />
-            <Link to={SHOP} className="button">
-              Shop Now &nbsp;
+            <Link to={S_Liive} className="button">
+              CONOCE MÁS &nbsp;
               <ArrowRightOutlined />
             </Link>
-          </div>
-          <div className="banner-img">
-            <img src={bannerImg} alt="" />
           </div>
         </div>
         <div className="display">

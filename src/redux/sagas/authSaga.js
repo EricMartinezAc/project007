@@ -11,8 +11,8 @@ import {
   SIGNUP,
 } from "../../constants/constants";
 import { SIGNIN as ROUTE_SIGNIN } from "../../constants/routes";
-import defaultAvatar from "../../static/images/defaultAvatar.jpg";
-import defaultBanner from "../../static/images/defaultBanner.jpg";
+import defaultAvatar from "../../static/images/CABECERAS-ciente.jpg";
+import defaultBanner from "../../static/images/vibfing.png";
 import { call, put } from "redux-saga/effects";
 import { signInSuccess, signOutSuccess } from "../actions/authActions";
 import { clearBasket, setBasketItems } from "../actions/basketActions";
