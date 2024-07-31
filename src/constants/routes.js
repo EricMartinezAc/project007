@@ -1,9 +1,12 @@
 export const HOME = '/';
 export const SHOP = "/Shop";
 export const JOBS = "/Jobs";
+export const PRODUCTS = "/Products";
+export const NEW = "/New";
 export const EQUIPMENTS = "/Equipments";
 export const MARKETPLACE = "/Marketplace";
 export const FEATURED_PRODUCTS = "/Shop/featured_products";
+export const BLACK_DAYS = "/BlackDays";
 export const SERVICES = "/Services";
 export const SERVICES_DESING = "/Services/desing";
 export const SERVICES_DEV = "/Services/dev";

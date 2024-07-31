@@ -1,9 +1,14 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import {
+  SHOP,
+  PRODUCTS,
+  SERVICES,
+  MARKETPLACE,
   FEATURED_PRODUCTS,
   RECOMMENDED_PRODUCTS,
-  SHOP,
+  BLACK_DAYS,
+  NEW,
 } from "../../constants/routes";
 import bannerImg from "../../static/images/banner-girl.png";
 import {
@@ -15,9 +20,10 @@ import {
 import { ArrowRightOutlined } from "@ant-design/icons";
 import MessageDisplay from "../../components/common/MessageDisplay";
 import { ProductShowcaseGrid } from "../../components/product";
+import { rule } from "postcss";
 
 const Home = () => {
-  useDocumentTitle("SIHENG | market and services");
+  useDocumentTitle("Liiv-E | By: SIHENG");
   useScrollTop();
 
   const {
@@ -32,21 +38,44 @@ const Home = () => {
     isLoading: isLoadingRecommended,
     error: errorRecommended,
   } = useRecommendedProducts(6);
+  const ruletaHeader = [
+    "Más vendidos",
+    "Top 5 estrellas",
+    "blackDay",
+    "Nuevos",
+  ];
+  const ruletaLink = [FEATURED_PRODUCTS, RECOMMENDED_PRODUCTS, BLACK_DAYS, NEW];
 
   return (
     <main className="content">
       <div className="home">
+        <div className="display ruletaHeader">
+          {ruletaHeader.length > 0 ? (
+            ruletaHeader.map((item, index) => (
+              <div
+                key={index}
+                className="ruletaHeader-item"
+                style={{ backgroundColor: `#f${index + 4}${index + 2}` }}
+              >
+                <Link to={ruletaLink[index]}>{item}</Link>
+              </div>
+            ))
+          ) : (
+            <p>Por el momento, no hay promociones disponibles</p>
+          )}
+        </div>
         <div className="banner">
           <div className="banner-desc">
             <h1 className="text-thin">
-              <strong>See</strong>
-              &nbsp;everything with&nbsp;
-              <strong>Clarity</strong>
+              <strong>Publica,</strong>
+              <br />
+              &nbsp;compra, vende, todo lo que necesites&nbsp;
+              <strong>en una sola plataforma</strong>
             </h1>
             <p>
-              Buying eyewear should leave you happy and good-looking, with money
-              in your pocket. Glasses, sunglasses, and contacts—we’ve got your
-              eyes covered.
+              Regístrate y potencia tu negocio en la más grande vitrina de
+              productos y servicios, o accede a descuentos increíbles en tus
+              productos favoritos.
             </p>
             <br />
             <Link to={SHOP} className="button">
