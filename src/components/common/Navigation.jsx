@@ -9,8 +9,8 @@ import BasketToggle from "../basket/BasketToggle";
 import Badge from "./Badge";
 import FiltersToggle from "./FiltersToggle";
 import MobileNavigation from "./MobileNavigation";
-import SearchBar from "./SearchBar";
 import { Image } from "@nextui-org/react";
+import { SearchInput } from "evergreen-ui";
 
 const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -161,7 +161,8 @@ const Navigation = () => {
               </button>
             </FiltersToggle>
           )}
-          <SearchBar />
+
+          <SearchInput placeholder="Filter traits..." />
           <ul className="navigation-menu">
             <li className="navigation-menu-item">
               <BasketToggle>
