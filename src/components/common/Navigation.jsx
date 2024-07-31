@@ -172,9 +172,10 @@ const Navigation = () => {
                     onClick={onClickToggle}
                     type="button"
                   >
-                    <Badge count={store.basketLength}>
+                    {/* <Badge count={store.basketLength}>
                       <ShoppingOutlined style={{ fontSize: "2.4rem" }} />
-                    </Badge>
+                    </Badge> */}
+                    TRABAJA CON NOSOTROS
                   </button>
                 )}
               </BasketToggle>

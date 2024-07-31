@@ -38,22 +38,18 @@
   
 .banner-img {
     position: relative;
-    width: 100%;
+    width: 90%;
     height: 100%;
     flex-basis: 50%;
     overflow: hidden;
-    background-image: url('../../static/images/8.png');
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-position: center;
-
-
+    border-radius: 10px 0 0 10px;
     img {
-        width: 150%;
+        background: transparent;
+        width: 180%;
         height: 150%;
         object-fit: cover;
-        transform: translateX(-10rem);
-        animation: mvBanner-img 10s alternate-reverse infinite;
+        transform: translateX(-40rem);
+        animation: mvBanner-img 9s alternate-reverse infinite;
     }
 }
 @keyframes mvBanner-img {

@@ -162,6 +162,11 @@ body{
     border: none;
     border-radius: 10px;
 }
+.banner-img {
+    background-image: url(./static/images/b2b.jpg);
+    background-size: cover;
+    background-size: 127% 100%;
+}
 
 
 
