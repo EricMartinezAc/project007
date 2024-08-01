@@ -163,11 +163,27 @@ body{
     border-radius: 10px;
 }
 .banner-img {
-    background-image: url(./static/images/b2b.jpg);
+    background-image: url(./static/images/15.png);
     background-size: cover;
     background-size: 127% 100%;
 }
-
+.SingUp{
+    position: relative;
+    top: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%	;
+    height: 400px;
+}
+.SingUp-form{
+    width: 50%;
+    height: 100%;
+    padding: 10px 5px;
+    background-image: url(./static/images/b2b.jpg);
+    background-size: cover;
+}
 
 
 

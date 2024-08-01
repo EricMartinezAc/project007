@@ -3,11 +3,12 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Componentes
-import Home from "../views/Home";
-import Singin_ from "../views/Singing/Singin";
-import Dashboard_ from "../views/Dashboard/Dashboard";
+import { HOME, SIGNIN, SIGNUP } from "../constants/routes";
 import { Navigation } from "../components/common";
 import { Basket } from "../components/basket";
+import Home from "../views/Home";
+import SignUp from "../views/SingUp";
+import SignIn from "../views/SingIn";
 
 // Tipos para props
 interface AppProps {
@@ -28,11 +29,11 @@ const AppRouter: React.FC<AppProps> = ({ navigate }) => {
           </p>
         </div> */}
         <div className="Renderable">
-          <Basket />
+          {/* <Basket /> */}
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/Singin" element={<Singin_ />} />
-            <Route path="/Dashboard" element={<Dashboard_ />} />
+            <Route path={HOME} element={<Home />} />
+            <Route path={SIGNIN} element={<SignIn />} />
+            <Route path={SIGNUP} element={<SignUp />} />
             {/* Asegúrate de agregar todas las rutas necesarias aquí */}
           </Routes>
         </div>

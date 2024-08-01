@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   SHOP,
@@ -22,6 +22,7 @@ import { ArrowRightOutlined } from "@ant-design/icons";
 import MessageDisplay from "../../components/common/MessageDisplay";
 import { ProductShowcaseGrid } from "../../components/product";
 import { rule } from "postcss";
+import { link } from "@nextui-org/react";
 
 const Home = () => {
   useDocumentTitle("Liiv-E | By: SIHENG");
@@ -39,33 +40,33 @@ const Home = () => {
     isLoading: isLoadingRecommended,
     error: errorRecommended,
   } = useRecommendedProducts(6);
-  const ruletaHeader = [
-    "Más vendidos",
-    "Top 5 estrellas",
-    "blackDay",
-    "Nuevos",
-  ];
-  const ruletaLink = [FEATURED_PRODUCTS, RECOMMENDED_PRODUCTS, BLACK_DAYS, NEW];
+  const ruletaHeader = [, , ,];
+  const [ruleta, setRuleta] = useState([
+    { header: "Más vendidos", state: true, link: FEATURED_PRODUCTS },
+    { header: "Top 5 estrellas", state: false, link: RECOMMENDED_PRODUCTS },
+    { header: "blackDay", state: false, link: BLACK_DAYS },
+    { header: "Nuevos", state: false, link: NEW },
+  ]);
+  const [visibleBanner, setvisibleBanner] = useState(true);
 
   return (
     <main className="content">
       <div className="home">
         <div className="display ruletaHeader">
-          {ruletaHeader.length > 0 ? (
-            ruletaHeader.map((item, index) => (
-              <div
-                key={index}
-                className="ruletaHeader-item"
-                style={{ backgroundColor: `#f${index + 4}${index + 2}` }}
-              >
-                <Link to={ruletaLink[index]}>{item}</Link>
-              </div>
-            ))
-          ) : (
-            <p>Por el momento, no hay promociones disponibles</p>
-          )}
+          {ruleta.map((item, index) => (
+            <div
+              key={index}
+              className="ruletaHeader-item"
+              style={{ backgroundColor: `#f${index + 4}${index + 2}` }}
+            >
+              <Link to={item.link}>{item.header}</Link>
+            </div>
+          ))}
         </div>
-        <div className="banner">
+        <div
+          style={{ display: `${visibleBanner} ? "block" : "none"` }}
+          className="banner"
+        >
           <div className="banner-img">
             <img src={bannerImg} alt="" />
           </div>

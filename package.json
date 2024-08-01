@@ -11,8 +11,6 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.4.0",
-    "@headlessui/react": "^2.1.2",
-    "@nextui-org/react": "^2.4.6",
     "autoprefixer": "^10.4.19",
     "clsx": "^2.1.1",
     "evergreen-ui": "^7.1.9",
