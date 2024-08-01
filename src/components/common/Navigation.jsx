@@ -9,8 +9,7 @@ import BasketToggle from "../basket/BasketToggle";
 import Badge from "./Badge";
 import FiltersToggle from "./FiltersToggle";
 import MobileNavigation from "./MobileNavigation";
-import { Image } from "@nextui-org/react";
-import { SearchInput } from "evergreen-ui";
+import { Image, SearchInput } from "evergreen-ui";
 
 const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

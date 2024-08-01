@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Image } from "@nextui-org/react";
+import { Image } from "evergreen-ui";
 
 function Modal(isOpen: boolean = false, img: string) {
+  console.log(isOpen);
   return (
     <div className={`${isOpen ? "block" : "hidden"}`}>
       <Image src={img} alt="imgen modal" />

@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.4.0",
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^5.16.6",
     "autoprefixer": "^10.4.19",
     "clsx": "^2.1.1",
     "evergreen-ui": "^7.1.9",

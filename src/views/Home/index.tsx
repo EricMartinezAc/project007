@@ -22,7 +22,6 @@ import { ArrowRightOutlined } from "@ant-design/icons";
 import MessageDisplay from "../../components/common/MessageDisplay";
 import { ProductShowcaseGrid } from "../../components/product";
 import { rule } from "postcss";
-import { link } from "@nextui-org/react";
 
 const Home = () => {
   useDocumentTitle("Liiv-E | By: SIHENG");
