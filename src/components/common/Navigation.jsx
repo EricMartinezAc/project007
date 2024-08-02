@@ -9,7 +9,12 @@ import BasketToggle from "../basket/BasketToggle";
 import Badge from "./Badge";
 import FiltersToggle from "./FiltersToggle";
 import MobileNavigation from "./MobileNavigation";
-import { Image, SearchInput } from "evergreen-ui";
+import SearchIcon from "@mui/icons-material/Search";
+import {
+  Search,
+  SearchIconWrapper,
+  StyledInputBase,
+} from "../../constants/styleMUI";
 
 const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -73,7 +78,7 @@ const Navigation = () => {
       {isMobile && (
         <>
           <div className="slider-button-mobile">
-            <Image className="logo-mobile" src={logo} alt="logomobile" />
+            <img className="logo-mobile" src={logo} alt="logomobile" />
             <button
               className="menu-toggle"
               onClick={toggleMobileMenu}
@@ -161,7 +166,15 @@ const Navigation = () => {
             </FiltersToggle>
           )}
 
-          <SearchInput placeholder="Filter traits..." />
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ "aria-label": "search" }}
+            />
+          </Search>
           <ul className="navigation-menu">
             <li className="navigation-menu-item">
               <BasketToggle>

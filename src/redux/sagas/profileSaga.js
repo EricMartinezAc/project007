@@ -2,8 +2,7 @@ import { UPDATE_EMAIL, UPDATE_PROFILE } from "@/constants/constants";
 import { ACCOUNT } from "@/constants/routes";
 import { displayActionMessage } from "@/helpers/utils";
 import { call, put, select } from "redux-saga/effects";
-import Firebase from "../../server/services/firebase.resolver";
-const firebase = new Firebase();
+import { firebase } from "../../server/services/firebase.services";
 import { setLoading } from "../actions/miscActions";
 import { updateProfileSuccess } from "../actions/profileActions";
 

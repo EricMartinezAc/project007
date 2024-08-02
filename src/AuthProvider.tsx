@@ -1,5 +1,5 @@
 import React, { createContext, useContext, ReactNode, useState } from "react";
-import Firebase from "./server/services/firebase.resolver";
+import Firebase from "./server/services/firebase.services";
 import { firebaseauthDTO } from "./server/dto/firebaseAuthDTO";
 
 const firebase = new Firebase();

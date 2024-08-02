@@ -20,9 +20,8 @@ import { resetCheckout } from "../actions/checkoutActions";
 import { resetFilter } from "../actions/filterActions";
 import { setAuthenticating, setAuthStatus } from "../actions/miscActions";
 import { clearProfile, setProfile } from "../actions/profileActions";
-import Firebase from "../../server/services/firebase.resolver";
+import { firebase } from "../../server/services/firebase.services";
 
-const firebase = new Firebase();
 
 // Puedes usar navigate como una función que debes pasar a tu saga
 function* authSaga({ type, payload, navigate }) {

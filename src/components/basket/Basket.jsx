@@ -2,7 +2,7 @@
 import { BasketItem, BasketToggle } from "./index.js";
 import { Boundary, Modal } from "../common";
 import { CHECKOUT_STEP_1 } from "../../constants/routes";
-import Firebase from "../../server/services/firebase.resolver";
+import Firebase from "../../server/services/firebase.services.js";
 import { calculateTotal, displayMoney } from "@/helpers/utils";
 import { useDidMount, useModal } from "@/hooks";
 import React, { useEffect } from "react";

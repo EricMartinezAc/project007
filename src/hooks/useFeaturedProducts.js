@@ -1,7 +1,6 @@
 import { useDidMount } from "./";
 import { useEffect, useState } from "react";
-import Firebase from "../server/services/firebase.resolver";
-const firebase = new Firebase();
+import { firebase } from "../server/services/firebase.services";
 
 const useFeaturedProducts = (itemsCount) => {
   const [featuredProducts, setFeaturedProducts] = useState([]);

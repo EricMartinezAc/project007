@@ -1,8 +1,7 @@
 import { useDidMount } from "./";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Firebase from "../server/services/firebase.resolver";
-const firebase = new Firebase();
+import { firebase } from "../server/services/firebase.services";
 
 const useProduct = (id) => {
   // get and check if product exists in store

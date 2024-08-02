@@ -42,7 +42,7 @@ import {
 import { firebaseConfig } from "../../config/firebaseConfig";
 import { firebaseauthDTO } from "../dto/firebaseAuthDTO";
 
-class Firebase {
+export class Firebase {
   private app: FirebaseApp;
   public auth: Auth;
   public db: Firestore;
@@ -64,6 +64,7 @@ class Firebase {
   // AUTH ACTIONS ------------
 
   createAccount = async ({
+    name,
     email,
     password,
   }: firebaseauthDTO): Promise<any> => {
@@ -372,5 +373,4 @@ class Firebase {
     }
   };
 }
-
-export default Firebase;
+export const firebase = new Firebase();

@@ -11,8 +11,8 @@ import { displayActionMessage } from "@/helpers/utils";
 import { all, call, put, select } from "redux-saga/effects";
 import { setLoading, setRequestStatus } from "@/redux/actions/miscActions";
 // Elimina la importación de history
-import Firebase from "../../server/services/firebase.resolver";
-const firebase = new Firebase();
+import { firebase } from "../../server/services/firebase.services";
+
 
 // Usa navigate como una función que debes pasar a tu saga
 function* handleAction(location, message, status, navigate) {

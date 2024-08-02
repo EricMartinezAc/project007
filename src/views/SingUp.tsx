@@ -1,4 +1,4 @@
-import { Label, TextInput } from "evergreen-ui";
+import { Box, Button, Input, TextField } from "@mui/material";
 import React, { useState } from "react";
 
 function SingUp() {
@@ -6,54 +6,58 @@ function SingUp() {
   const [emailReg, setemailReg] = useState<string>("");
   const [pswReg, setPswReg] = useState<string>("");
   const [psw2Reg, setPsw2Reg] = useState<string>("");
+  const submitReg = () => {
+    fetch;
+  };
 
   return (
-    <div className="SingUp">
-      <form className="SingUp-form">
+    <Box
+      className="SingUp"
+      component="form"
+      sx={{
+        "& .MuiTextField-root": { m: 1, width: "25ch" },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <div className="singUp-form">
         <h1>REGISTRO DE USUARIO</h1>
-        <Label htmlFor="nombreReg">Nombres y apellidos</Label>
-        <TextInput
+        <TextField
           id="nombreReg"
           value={nombreReg}
           name="nombreReg"
-          placeholder="ingrese su Email"
+          label="ingrese su Email"
           type="emil"
         />
-        <Label htmlFor="emailReg">Email</Label>
-        <TextInput
+        <TextField
           id="emailReg"
           value={emailReg}
           name="text-input-name"
-          placeholder="ingrese su Email"
+          label="ingrese su Email"
           type="emil"
         />
         <div className="pswArea">
           <div className="pswComponent">
-            {" "}
-            <Label htmlFor="pswReg">Contraseña</Label>
-            <TextInput
+            <TextField
               id="pswReg"
+              label="Ingrese su contraseña"
               value={pswReg}
               name="pswReg"
-              placeholder="Digite una contraseña"
               type="password"
             />
           </div>
           <div className="pswComponent">
-            {" "}
-            <Label htmlFor="psw2Reg">Confirmar contraseña</Label>
-            <TextInput
+            <TextField
               id="psw2Reg"
               value={psw2Reg}
               name="psw2Reg"
-              placeholder="TRespita su contraseña"
+              label="Respita su contraseña"
               type="password"
             />
           </div>
         </div>
-        <button>Registrase</button>
-      </form>
-    </div>
+      </div>
+    </Box>
   );
 }
 
