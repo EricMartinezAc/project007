@@ -6,13 +6,13 @@ import { ClassValidatorAuth } from "./Middlewares/ClassValidatorAuth";
 import jwt from "jsonwebtoken";
 
 export const createAccount = ({
+  serv,
   name,
   email,
   password,
   password2,
 }: firebaseauthDTO): DataUser => {
-  const serv = "regtr";
-  if (!ClassValidatorAuth({ name, email, password, password2, serv }))
+  if (!ClassValidatorAuth({ serv, name, email, password, password2 }))
     return { email, token: "null", data: "null" };
 
   const result = firebase.createAccount({ name, email, password });

@@ -11,7 +11,7 @@ import {
   NEW,
   S_Liive,
 } from "../../constants/routes";
-import bannerImg from "../../static/images/she.png";
+import bannerImg from "../../static/images/banner/she.png";
 import {
   useDocumentTitle,
   useFeaturedProducts,

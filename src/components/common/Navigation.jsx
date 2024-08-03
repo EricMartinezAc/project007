@@ -14,7 +14,7 @@ import {
   Search,
   SearchIconWrapper,
   StyledInputBase,
-} from "../../constants/styleMUI";
+} from "../../styles/styleMUI";
 
 const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -60,8 +60,7 @@ const Navigation = () => {
     ROUTE.CHECKOUT_STEP_1,
     ROUTE.CHECKOUT_STEP_2,
     ROUTE.CHECKOUT_STEP_3,
-    ROUTE.SIGNIN,
-    ROUTE.SIGNUP,
+    ROUTE.SIGNAUTH,
     ROUTE.FORGOT_PASSWORD,
   ];
 
@@ -110,20 +109,9 @@ const Navigation = () => {
                 className={({ isActive }) =>
                   isActive ? "navigation-menu-active" : undefined
                 }
-                end
-                to={ROUTE.SHOP}
-              >
-                SHOP
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? "navigation-menu-active" : undefined
-                }
                 to={ROUTE.FEATURED_PRODUCTS}
               >
-                PRODUCTS
+                PRODUCTOS
               </NavLink>
             </li>
             <li>
@@ -133,7 +121,7 @@ const Navigation = () => {
                 }
                 to={ROUTE.SERVICES}
               >
-                SERVICES
+                SERVICIOS
               </NavLink>
             </li>
             <li>
@@ -144,16 +132,6 @@ const Navigation = () => {
                 to={ROUTE.MARKETPLACE}
               >
                 MARKETPLACE
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? "navigation-menu-active" : undefined
-                }
-                to={ROUTE.EQUIPMENTS}
-              >
-                EQUIPMENTS
               </NavLink>
             </li>
           </ul>
@@ -171,7 +149,7 @@ const Navigation = () => {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
+              placeholder="Qué necesitas?"
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
@@ -193,32 +171,21 @@ const Navigation = () => {
                 )}
               </BasketToggle>
             </li>
-            {store.user ? (
-              <li className="navigation-menu-item">
-                <UserAvatar />
-              </li>
-            ) : (
-              <li className="navigation-action">
-                {pathname !== ROUTE.SIGNUP && (
-                  <Link
-                    className="button button-small"
-                    onClick={onClickLink}
-                    to={ROUTE.SIGNUP}
-                  >
-                    Sign Up
-                  </Link>
-                )}
-                {pathname !== ROUTE.SIGNIN && (
-                  <Link
-                    className="button button-small button-muted margin-left-s"
-                    onClick={onClickLink}
-                    to={ROUTE.SIGNIN}
-                  >
-                    Sign In
-                  </Link>
-                )}
-              </li>
-            )}
+
+            <li className="navigation-menu-item">
+              <UserAvatar />
+            </li>
+
+            <li className="navigation-action">
+              <Link
+                id="linkSesion"
+                className="button button-small  margin-left-s"
+                onClick={onClickLink}
+                to={ROUTE.SIGNAUTH}
+              >
+                INICIA SESIÓN
+              </Link>
+            </li>
           </ul>
         </nav>
       )}

@@ -4,6 +4,7 @@ const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const regexPsw =
   /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 const regexTotalName = /^(?=[a-zA-Z\s]{4,})(?!.*\s{8,})[a-zA-Z\s]+$/;
+
 export const ClassValidatorAuth = ({
   name,
   email,

@@ -3,12 +3,11 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Componentes
-import { HOME, SIGNIN, SIGNUP } from "../constants/routes";
+import { HOME, SIGNAUTH } from "../constants/routes";
 import { Navigation } from "../components/common";
 import { Basket } from "../components/basket";
 import Home from "../views/Home";
-import SignUp from "../views/SingUp";
-import SignIn from "../views/SingIn";
+import SignAuth from "../views/Inicio/SignAuth";
 
 // Tipos para props
 interface AppProps {
@@ -32,8 +31,7 @@ const AppRouter: React.FC<AppProps> = ({ navigate }) => {
           {/* <Basket /> */}
           <Routes>
             <Route path={HOME} element={<Home />} />
-            <Route path={SIGNIN} element={<SignIn />} />
-            <Route path={SIGNUP} element={<SignUp />} />
+            <Route path={SIGNAUTH} element={<SignAuth />} />
             {/* Asegúrate de agregar todas las rutas necesarias aquí */}
           </Routes>
         </div>
