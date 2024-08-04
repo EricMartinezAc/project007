@@ -1,8 +1,8 @@
-import { Box, Button, Radio, RadioGroup } from "@mui/material";
+import { Alert, Box, Button, Radio, RadioGroup } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { createAccount } from "../../resolvers/createAccount";
 import { firebaseauthDTO } from "../../server/dto/firebaseAuthDTO";
-import { CustomTextField, FCntrlLabel } from "../../styles/styleMUI";
+import { CustomTextField } from "../../styles/styleMUI";
 
 function SignAuth() {
   const [values, setValues] = useState<firebaseauthDTO>({
@@ -13,6 +13,8 @@ function SignAuth() {
   });
   const [formType, setFormType] = useState<string>("auth");
 
+  const [errorForm, setErrorForm] = useState<any>({ val: false });
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValues({
       ...values,
@@ -22,17 +24,29 @@ function SignAuth() {
 
   const handleSubmit = () => {
     console.log(values);
-    if (values.password !== values.password2)
-      throw new Error("confirme se contraseña");
 
-    const auth_resp = createAccount({ serv: formType, ...values });
-    console.log("hereee", auth_resp);
-  };
-
-  const [errorPsw, setErrorPsw] = useState<boolean>(false);
-
-  const onchangePsw2 = () => {
-    setErrorPsw(true);
+    if (
+      values.email === "" ||
+      values.password === "" ||
+      values.name === "" ||
+      values.password === ""
+    ) {
+      setErrorForm({ msj: "Debe diligenciar todo el formulario", val: true });
+      setTimeout(() => {
+        setErrorForm({ val: false });
+      }, 4000);
+    } else {
+      if (values.password !== values.password2) {
+        setTimeout(() => {
+          setErrorForm({ val: false });
+        }, 4000);
+        setErrorForm({ msj: "Debe coincidir las contraseñas", val: true });
+      } else {
+        const auth_resp = createAccount({ serv: formType, ...values });
+        auth_resp;
+        console.log("hereee", auth_resp);
+      }
+    }
   };
 
   return (
@@ -48,9 +62,15 @@ function SignAuth() {
       <div className="singUp-form">
         <h2 id="singUp-formh2">
           {formType === "auth"
-            ? "AUTEFICACIÓN DE USUARIO"
+            ? "AUTENTICACIÓN DE USUARIO"
             : "REGISTRO DE USUARIO"}
         </h2>
+        <Alert
+          sx={{ display: !errorForm.val ? "none" : "block", fontSize: "15px" }}
+          severity="error"
+        >
+          {errorForm.msj}
+        </Alert>
         <CustomTextField
           label="Ingrese su nombre"
           variant="outlined"
@@ -86,7 +106,7 @@ function SignAuth() {
           <div className="pswComponent">
             <CustomTextField
               className="inputFormAuth"
-              label="Vuela a ingresar la contraseña"
+              label="Repite la contraseña"
               type="password"
               variant="outlined"
               fullWidth

@@ -13,12 +13,12 @@ export const createAccount = ({
   password2,
 }: firebaseauthDTO): DataUser => {
   if (!ClassValidatorAuth({ serv, name, email, password, password2 }))
-    return { email, token: "null", data: "null" };
+    return { email, datatime: "null", data: "null" };
 
+  console.log("01");
   const result = firebase.createAccount({ name, email, password });
-  const secretKey = new Date().toISOString();
-  const token = jwt.sign({ userid: new Date(), name }, secretKey, {
-    expiresIn: "10h",
-  });
-  return { email, token, data: result };
+
+  const datatime = Math.floor(Date.now() / 1000).toString();
+
+  return { email, datatime, data: result };
 };

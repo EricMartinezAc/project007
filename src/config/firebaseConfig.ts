@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getStorage } from "firebase/storage"; // Asegúrate de importar getStorage
+import { getStorage } from "firebase/storage"; 
 
 export const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,

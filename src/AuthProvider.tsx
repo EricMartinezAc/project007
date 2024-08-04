@@ -1,8 +1,6 @@
 import React, { createContext, useContext, ReactNode, useState } from "react";
-import Firebase from "./server/services/firebase.services";
+import { firebase } from "./server/services/firebase.services";
 import { firebaseauthDTO } from "./server/dto/firebaseAuthDTO";
-
-const firebase = new Firebase();
 
 interface User {
   email: string;
