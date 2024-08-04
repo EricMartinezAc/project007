@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "./dist",
-    "declaration": true, // Evita generar archivos .d.ts
+    "declaration": false,
     "sourceMap": true,
     "strict": true,
     "esModuleInterop": true,
