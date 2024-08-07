@@ -5,6 +5,7 @@ import { firebaseauthDTO } from "../../server/dto/firebaseAuthDTO";
 import { CustomTextField } from "../../styles/styleMUI";
 import { useNavigate } from "react-router-dom";
 import { authAccount } from "../../resolvers/authAccount";
+import SpringModalPolicy from "../../components/common/ModalPolicy";
 
 function SignAuth({ token, setToken }: any) {
   const navigate = useNavigate();
@@ -96,6 +97,8 @@ function SignAuth({ token, setToken }: any) {
       noValidate
       autoComplete="off"
     >
+      {" "}
+      <SpringModalPolicy />
       <div className="singUp-form">
         <h2 id="singUp-formh2">
           {formType === "auth"

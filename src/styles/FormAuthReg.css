@@ -6,6 +6,14 @@
   background-color: rgb(231, 127, 41);
   color: #fff;
 }
+#outSesion { 
+  background-color: #f34242;
+  color: #eee
+}
+#outSesion:hover{
+  background-color: #913b3be3;
+  color: #555;
+}
 .SingUp {
   position: relative;
   top: 130px;

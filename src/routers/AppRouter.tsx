@@ -8,6 +8,7 @@ import { Navigation } from "../components/common";
 import { Basket } from "../components/basket";
 import Home from "../views/Home";
 import SignAuth from "../views/Inicio/SignAuth";
+import { firebaseauthDTO } from "../server/dto/firebaseAuthDTO";
 
 // Tipos para props
 interface AppProps {
@@ -15,28 +16,24 @@ interface AppProps {
 }
 
 const AppRouter: React.FC<AppProps> = ({ navigate }) => {
-  const [token, setToken] = useState<string>("");
+  const [user, setUser] = useState<firebaseauthDTO>({
+    name: "",
+    email: "",
+    password: "",
+    token: "",
+  });
+
   return (
     <Router>
-      <Navigation />
+      <Navigation user={user} setUser={setUser} />
       <div>
-        {/* <div className="NoRendereable">
-          <p>
-            Tu dispositivo no cumple con las características necesarias para la
-            versión web.
-            <br />
-            <b>Ponte en contacto con el proveedor del servicio.</b>
-          </p>
-        </div> */}
         <div className="Renderable">
-          {/* <Basket /> */}
           <Routes>
             <Route path={HOME} element={<Home />} />
             <Route
               path={SIGNAUTH}
-              element={<SignAuth token={token} setToken={setToken} />}
+              element={<SignAuth user={user} setUser={setUser} />}
             />
-            {/* Asegúrate de agregar todas las rutas necesarias aquí */}
           </Routes>
         </div>
       </div>

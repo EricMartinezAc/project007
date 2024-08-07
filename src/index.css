@@ -206,8 +206,21 @@ body {
   transition: opacity 3s ease-in-out;
 }
 
+.float{
+  position: fixed;
+}
+.tp32{
+  top: 230px;
+}
+.rg2{
+  right: 0%;
+}
 /* Mostrar el botón en móviles */
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
+  .SingUp{
+    position: relative;
+    top:300px;
+  }
   .menu-toggle {
     display: block; /* Mostrar el botón en pantallas móviles */
     position: absolute;
@@ -222,4 +235,8 @@ body {
     top: 100px;
     left: 10px;
   }
+}
+@media (max-width:1007px) {
+  .navigation{display: block;}
+  .singUp-form{width: 75%;}
 }

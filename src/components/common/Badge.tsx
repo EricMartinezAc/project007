@@ -1,6 +1,6 @@
 import React from "react";
 
-function Badge() {
+function Badge({ count }) {
   return <div>Badge</div>;
 }
 
