@@ -46,7 +46,6 @@ const Home = () => {
     { header: "blackDay", state: false, link: BLACK_DAYS },
     { header: "Nuevos", state: false, link: NEW },
   ]);
-  const [visibleBanner, setvisibleBanner] = useState(true);
 
   return (
     <main className="content">
@@ -62,10 +61,7 @@ const Home = () => {
             </div>
           ))}
         </div>
-        <div
-          style={{ display: `${visibleBanner} ? "block" : "none"` }}
-          className="banner"
-        >
+        <div className="banner">
           <div className="banner-img">
             <img src={bannerImg} alt="" />
           </div>

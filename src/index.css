@@ -168,10 +168,11 @@ body {
 }
 .ruletaHeader-item {
   width: 100%;
-  padding: 10px 50px;
+  padding: 10px 10px;
   margin: 0 5px;
   border: none;
   border-radius: 10px;
+  
 }
 
 @keyframes bannerImg {
@@ -195,6 +196,7 @@ body {
   }
 }
 .banner-img {
+  height: 60vh;
   animation: bannerImg 15s infinite;
   background-size: cover;
   background-size: contain;
@@ -205,7 +207,9 @@ body {
 .banner-img::before {
   transition: opacity 3s ease-in-out;
 }
-
+.banner-desc{
+  height: 100%;
+}
 .float{
   position: fixed;
 }
@@ -232,9 +236,18 @@ body {
   }
   #marketplacelinknav{display: none;}
   .navigationmenu-link{display: block; margin: 7px;}
+  .content{ margin-left: 0; margin-right: 0; padding-left: 10px; padding-right: 10px;}
+  .home{position: relative; top: 10px;}
 }
 @media (max-width:1007px) {
+  .home{position: relative; top: 200px;}
   .SingUp{top:300px;}
   .navigation{display: block;}
   .singUp-form{width: 75%;}
+}
+@media(max-width:850px){
+  .home{position: relative;top: 150px;}
+}
+@media (max-width:830px) {
+  .banner{display: none;}
 }
