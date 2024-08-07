@@ -138,40 +138,53 @@ const Navigation = ({ user, setUser }: any) => {
               </BasketToggle>
             </li>
 
-            <li className="navigation-menu-item">
-              <UserAvatar />
-            </li>
-
-            <li
-              style={{ display: !user.token ? "block" : "none" }}
-              className="navigation-action"
-            >
-              <Link
-                id="linkSesion"
-                className="button button-small  margin-left-s"
-                to={ROUTE.SIGNAUTH}
-              >
-                {locationCurrent.pathname === "/signAuth"
-                  ? ""
-                  : `INICIA SESIÓN`}
-              </Link>
-            </li>
-
             <li
               style={{
-                display: user.token && user.token.length > 5 ? "block" : "none",
+                display:
+                  locationCurrent.pathname !== "/signAuth" ? "block" : "none",
               }}
-              className="navigation-action"
+              className="navigation-menu-item"
             >
-              <Link
-                onClick={Logout}
-                id="outSesion"
-                className="button button-small  margin-left-s"
-                to={ROUTE.SIGNAUTH}
-              >
-                CERRAR SESIÓN
-              </Link>
+              <UserAvatar />
             </li>
+            <div
+              style={{
+                display:
+                  locationCurrent.pathname !== "/signAuth" ? "block" : "none",
+              }}
+            >
+              <li
+                style={{
+                  display: !user.token ? "block" : "none",
+                }}
+                className="navigation-action"
+              >
+                <Link
+                  id="linkSesion"
+                  className="button button-small  margin-left-s"
+                  to={ROUTE.SIGNAUTH}
+                >
+                  INICIA SESIÓN
+                </Link>
+              </li>
+
+              <li
+                style={{
+                  display:
+                    user.token && user.token.length > 5 ? "block" : "none",
+                }}
+                className="navigation-action"
+              >
+                <Link
+                  onClick={Logout}
+                  id="outSesion"
+                  className="button button-small  margin-left-s"
+                  to={ROUTE.SIGNAUTH}
+                >
+                  CERRAR SESIÓN
+                </Link>
+              </li>
+            </div>
           </ul>
         </nav>
       )}
