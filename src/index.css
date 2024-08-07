@@ -230,9 +230,11 @@ body {
     padding: 0;
     cursor: pointer;
   }
+  #marketplacelinknav{display: none;}
+  .navigationmenu-link{display: block; margin: 7px;}
 }
 @media (max-width:1007px) {
-  .SingUp{top:300px}
+  .SingUp{top:300px;}
   .navigation{display: block;}
   .singUp-form{width: 75%;}
 }

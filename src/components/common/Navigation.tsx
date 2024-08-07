@@ -78,7 +78,7 @@ const Navigation = ({ user, setUser }: any) => {
             </Link>
           </div>
           <ul className="navigation-menu-main">
-            <li>
+            <li className="navigationmenu-link">
               <NavLink
                 className={({ isActive }) =>
                   isActive ? "navigation-menu-active" : undefined
@@ -88,7 +88,7 @@ const Navigation = ({ user, setUser }: any) => {
                 PRODUCTOS
               </NavLink>
             </li>
-            <li>
+            <li className="navigationmenu-link">
               <NavLink
                 className={({ isActive }) =>
                   isActive ? "navigation-menu-active" : undefined
@@ -98,7 +98,7 @@ const Navigation = ({ user, setUser }: any) => {
                 SERVICIOS
               </NavLink>
             </li>
-            <li>
+            <li className="navigationmenu-link" id="marketplacelinknav">
               <NavLink
                 className={({ isActive }) =>
                   isActive ? "navigation-menu-active" : undefined
