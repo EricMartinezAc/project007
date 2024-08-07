@@ -11,6 +11,7 @@ import {
   sendPasswordResetEmail,
   updatePassword,
   updateEmail,
+  updateProfile,
   reauthenticateWithCredential,
   Auth,
   createUserWithEmailAndPassword,
@@ -41,6 +42,7 @@ import {
 } from "firebase/storage";
 import { firebaseConfig } from "../../config/firebaseConfig";
 import { firebaseauthDTO } from "../dto/firebaseAuthDTO";
+import { ResponseFirebaseDTO } from "../dto/responseFirebaseDTO";
 
 export class Firebase {
   private app: FirebaseApp;
@@ -54,10 +56,10 @@ export class Firebase {
       this.auth = getAuth(this.app);
       this.db = getFirestore(this.app);
       this.storage = getStorage(this.app);
-      console.log("Firebase services initialized");
+      console.log("server services initialized");
     } catch (error) {
-      console.error("Error initializing Firebase:", error);
-      throw new Error("Error initializing Firebase");
+      console.error("Error initializing server:", error);
+      throw new Error("Error initializing server");
     }
   }
 
@@ -65,37 +67,69 @@ export class Firebase {
 
   createAccount = async ({
     name,
+    photoURL,
     email,
     password,
-  }: firebaseauthDTO): Promise<any> => {
+  }: firebaseauthDTO): Promise<ResponseFirebaseDTO> => {
     try {
-      console.log(`Creating account for email: ${email}`);
+      console.log(`Creando cuenta: ${email}`);
       const result = await createUserWithEmailAndPassword(
         this.auth,
         email,
         password
       );
-      console.log("Account created successfully:", result);
-      return result;
+      const user = result.user;
+      const token = (await result.user.getIdToken(true)).toString();
+      updateProfile(user, { displayName: name, photoURL });
+      return {
+        result,
+        msj: `usuario ${email} registrado satisfactoriamente`,
+        token,
+      };
     } catch (error) {
-      console.error("Error creating account:", error);
-      throw new Error("Failed to create account");
+      if (error instanceof Error) {
+        return {
+          result: false,
+          msj: `Error al crear la cuenta. Clic en el logo '?' y verifique las políticas de datos, o comuníquese con nosotros`,
+        };
+      } else {
+        return {
+          result: null,
+          msj: "Error desconocido al crear la cuenta, comuníquese con nosotros",
+        };
+      }
     }
   };
 
-  signIn = async ({ email, password }: firebaseauthDTO): Promise<any> => {
+  signIn = async ({
+    name,
+    email,
+    password,
+  }: firebaseauthDTO): Promise<ResponseFirebaseDTO> => {
     try {
-      console.log(`Signing in with email: ${email}`);
+      console.log(`iniciando sesion con para: ${email}`);
       const result = await signInWithEmailAndPassword(
         this.auth,
         email,
         password
       );
-      console.log("Signed in successfully:", result);
-      return result;
+      const user = result.user;
+      if (user.displayName !== name)
+        throw new Error("usuario log no es compatible");
+      const token = (await result.user.getIdToken(true)).toString();
+      return { result, msj: `Bienvenido de vuelta ${email}`, token };
     } catch (error) {
-      console.error("Error signing in:", error);
-      throw new Error("Failed to sign in");
+      if (error instanceof Error) {
+        return {
+          result: false,
+          msj: `Error de sesión ${error}. Clic en el logo '?' y verifique las políticas de datos, o comuníquese con nosotros`,
+        };
+      } else {
+        return {
+          result: null,
+          msj: "Error desconocido, comuníquese con nosotros",
+        };
+      }
     }
   };
 

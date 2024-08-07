@@ -18,9 +18,9 @@ export const ClassValidatorAuth = ({
 }: firebaseauthDTO): boolean => {
   if (serv === "") return false;
   if (serv === "regtr" && password !== password2) return false;
-  // console.log('01', regexEmail.test(email))
-  // console.log('02',regexPsw.test(password))
-  // console.log('03',regexTotalName.test(name))
+  console.log("01", regexEmail.test(email));
+  console.log("02", regexPsw.test(password));
+  console.log("03", regexTotalName.test(name));
 
   return regexEmail.test(email) &&
     regexPsw.test(password) &&

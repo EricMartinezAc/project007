@@ -3,22 +3,21 @@ import { DataUser } from "../server/dto/dataUser";
 
 import { firebase } from "../server/services/firebase.services";
 import { ClassValidatorAuth } from "./Middlewares/ClassValidatorAuth";
-import jwt from "jsonwebtoken";
 
-export const createAccount = async ({
+export const authAccount = async ({
   serv,
   name,
   email,
   password,
-  password2,
 }: firebaseauthDTO): Promise<DataUser> => {
-  if (!ClassValidatorAuth({ serv, name, email, password, password2 }))
+  if (!ClassValidatorAuth({ serv, name, email, password })) {
     throw new Error(
-      "los datos deben cumplir políticas. Clic en ícono de interrogación '? para más detalles"
+      "los datos deben cumplir políticas. Clic en ícono de interrogación '?' para más detalles."
     );
+  }
   const datatime = Math.floor(Date.now() / 1000).toString();
   try {
-    const result = await firebase.createAccount({ name, email, password });
+    const result = await firebase.signIn({ name, email, password });
     console.log(result);
     return { email, datatime, data: result };
   } catch (error) {

@@ -1,5 +1,5 @@
 // AppRouter.tsx
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Componentes
@@ -15,6 +15,7 @@ interface AppProps {
 }
 
 const AppRouter: React.FC<AppProps> = ({ navigate }) => {
+  const [token, setToken] = useState<string>("");
   return (
     <Router>
       <Navigation />
@@ -31,7 +32,10 @@ const AppRouter: React.FC<AppProps> = ({ navigate }) => {
           {/* <Basket /> */}
           <Routes>
             <Route path={HOME} element={<Home />} />
-            <Route path={SIGNAUTH} element={<SignAuth />} />
+            <Route
+              path={SIGNAUTH}
+              element={<SignAuth token={token} setToken={setToken} />}
+            />
             {/* Asegúrate de agregar todas las rutas necesarias aquí */}
           </Routes>
         </div>

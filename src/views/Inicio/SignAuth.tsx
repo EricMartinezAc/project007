@@ -3,8 +3,11 @@ import React, { useEffect, useState } from "react";
 import { createAccount } from "../../resolvers/createAccount";
 import { firebaseauthDTO } from "../../server/dto/firebaseAuthDTO";
 import { CustomTextField } from "../../styles/styleMUI";
+import { useNavigate } from "react-router-dom";
+import { authAccount } from "../../resolvers/authAccount";
 
-function SignAuth() {
+function SignAuth({ token, setToken }: any) {
+  const navigate = useNavigate();
   const [values, setValues] = useState<firebaseauthDTO>({
     name: "",
     email: "",
@@ -22,9 +25,7 @@ function SignAuth() {
     });
   };
 
-  const handleSubmit = () => {
-    console.log(values);
-
+  const handleSubmit = async () => {
     if (
       values.email === "" ||
       values.password === "" ||
@@ -42,9 +43,45 @@ function SignAuth() {
         }, 4000);
         setErrorForm({ msj: "Debe coincidir las contraseñas", val: true });
       } else {
-        const auth_resp = createAccount({ serv: formType, ...values });
-        auth_resp;
-        console.log("hereee", auth_resp);
+        try {
+          if (formType === "regtr") {
+            const auth_resp = await createAccount({
+              serv: formType,
+              ...values,
+            });
+            alert(auth_resp.data.msj);
+            if (!auth_resp.data.result || auth_resp.data.result === null) {
+              window.location.reload();
+            } else {
+              try {
+                console.log("goal");
+                await setToken(auth_resp.data.token);
+                navigate("../");
+              } catch (error) {
+                console.log("auto goal");
+                alert(error);
+                window.location.reload();
+              }
+            }
+          }
+          if (formType === "auth") {
+            const auth_resp = await authAccount({ serv: formType, ...values });
+            alert(auth_resp.data.msj);
+            if (!auth_resp.data.result || auth_resp.data.result === null) {
+              window.location.reload();
+            } else {
+              try {
+                await setToken(auth_resp.data.token);
+                navigate("../");
+              } catch (error) {
+                alert(error);
+                window.location.reload();
+              }
+            }
+          }
+        } catch (error) {
+          alert(error);
+        }
       }
     }
   };
