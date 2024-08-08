@@ -22,6 +22,8 @@ const AppRouter: React.FC<AppProps> = ({ navigate }) => {
     password: "",
     token: "",
   });
+  const [featuredProducts, setFeaturedProducts] = useState<any>([]);
+  const [recommendedProducts, setRecommendedProducts] = useState<any>([]);
 
   return (
     <Router>
@@ -29,7 +31,17 @@ const AppRouter: React.FC<AppProps> = ({ navigate }) => {
       <div>
         <div className="Renderable">
           <Routes>
-            <Route path={HOME} element={<Home />} />
+            <Route
+              path={HOME}
+              element={
+                <Home
+                  featuredProducts={featuredProducts}
+                  setFeaturedProducts={setFeaturedProducts}
+                  recommendedProducts={recommendedProducts}
+                  setRecommendedProducts={setRecommendedProducts}
+                />
+              }
+            />
             <Route
               path={SIGNAUTH}
               element={<SignAuth user={user} setUser={setUser} />}

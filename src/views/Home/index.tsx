@@ -12,34 +12,21 @@ import {
   S_Liive,
 } from "../../constants/routes";
 import bannerImg from "../../static/images/banner/she.png";
-import {
-  useDocumentTitle,
-  useFeaturedProducts,
-  useRecommendedProducts,
-  useScrollTop,
-} from "../../hooks";
+import { useDocumentTitle, useScrollTop } from "../../hooks";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import MessageDisplay from "../../components/common/MessageDisplay";
-import { ProductShowcaseGrid } from "../../components/product";
+import ProductShowcaseGrid from "../../components/product/ProductShowcaseGrid";
 import { rule } from "postcss";
 
-const Home = () => {
+const Home = ({
+  featuredProducts,
+  setFeaturedProducts,
+  recommendedProducts,
+  setRecommendedProducts,
+}: any) => {
   useDocumentTitle("Liiv-E | By: SIHENG");
   useScrollTop();
 
-  const {
-    featuredProducts,
-    fetchFeaturedProducts,
-    isLoading: isLoadingFeatured,
-    error: errorFeatured,
-  } = useFeaturedProducts(6);
-  const {
-    recommendedProducts,
-    fetchRecommendedProducts,
-    isLoading: isLoadingRecommended,
-    error: errorRecommended,
-  } = useRecommendedProducts(6);
-  const ruletaHeader = [, , ,];
   const [ruleta, setRuleta] = useState([
     { header: "Más vendidos", state: true, link: FEATURED_PRODUCTS },
     { header: "Top 5 estrellas", state: false, link: RECOMMENDED_PRODUCTS },
@@ -84,40 +71,36 @@ const Home = () => {
             </Link>
           </div>
         </div>
-        <div className="display">
-          <div className="display-header">
-            <h1>Featured Products</h1>
-            <Link to={FEATURED_PRODUCTS}>See All</Link>
-          </div>
-          {errorFeatured && !isLoadingFeatured ? (
-            <MessageDisplay
-              message={errorFeatured}
-              action={fetchFeaturedProducts}
-              buttonLabel="Try Again"
-            />
-          ) : (
-            <ProductShowcaseGrid
-              products={featuredProducts}
-              skeletonCount={6}
-            />
-          )}
+        <div className="display-header">
+          <h1>Featured Products</h1>
+          <Link to={FEATURED_PRODUCTS}>See All</Link>
         </div>
-        <div className="display">
-          <div className="display-header">
-            <h1>Recommended Products</h1>
-            <Link to={RECOMMENDED_PRODUCTS}>See All</Link>
-          </div>
-          {errorRecommended && !isLoadingRecommended ? (
-            <MessageDisplay
-              message={errorRecommended}
-              action={fetchRecommendedProducts}
-              buttonLabel="Try Again"
-            />
+        <div className="ProductShowcaseGrid-container">
+          {featuredProducts.length > 0 ? (
+            featuredProducts.map((item: any, product: any) => {
+              <div key={item} className="ProductShowcaseGrid">
+                <ProductShowcaseGrid product={product} />
+              </div>;
+            })
           ) : (
-            <ProductShowcaseGrid
-              products={recommendedProducts}
-              skeletonCount={6}
-            />
+            <div className="ProductShowcaseGrid">No existen productos aún</div>
+          )}
+        </div>{" "}
+        <div className="display-header">
+          <h1>Recommended Products</h1>
+          <Link to={RECOMMENDED_PRODUCTS}>See All</Link>
+        </div>
+        <div className="ProductShowcaseGrid-container">
+          {recommendedProducts.length > 0 ? (
+            recommendedProducts.map((item: any, product: any) => {
+              <div className="ProductShowcaseGrid-item">
+                <ProductShowcaseGrid products={recommendedProducts} />
+              </div>;
+            })
+          ) : (
+            <div className="ProductShowcaseGrid">
+              No existen productos recomendados aún
+            </div>
           )}
         </div>
       </div>

@@ -172,7 +172,6 @@ body {
   margin: 0 5px;
   border: none;
   border-radius: 10px;
-  
 }
 
 @keyframes bannerImg {
@@ -207,23 +206,38 @@ body {
 .banner-img::before {
   transition: opacity 3s ease-in-out;
 }
-.banner-desc{
+.banner-desc {
   height: 100%;
 }
-.float{
+.float {
   position: fixed;
 }
-.tp32{
+.tp32 {
   top: 230px;
 }
-.rg2{
+.rg2 {
   right: 0%;
 }
+.ProductShowcaseGrid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  padding: 10px;
+}
+.ProductShowcaseGrid-item {
+  background-color: #4caf50;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 /* Mostrar el botón en móviles */
 @media (max-width: 1200px) {
-  .SingUp{
+  .SingUp {
     position: relative;
-    top:150px;
+    top: 150px;
   }
   .menu-toggle {
     display: block; /* Mostrar el botón en pantallas móviles */
@@ -234,20 +248,47 @@ body {
     padding: 0;
     cursor: pointer;
   }
-  #marketplacelinknav{display: none;}
-  .navigationmenu-link{display: block; margin: 7px;}
-  .content{ margin-left: 0; margin-right: 0; padding-left: 10px; padding-right: 10px;}
-  .home{position: relative; top: 10px;}
+  #marketplacelinknav {
+    display: none;
+  }
+  .navigationmenu-link {
+    display: block;
+    margin: 7px;
+  }
+  .content {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .home {
+    position: relative;
+    top: 10px;
+  }
 }
-@media (max-width:1007px) {
-  .home{position: relative; top: 200px;}
-  .SingUp{top:300px;}
-  .navigation{display: block;}
-  .singUp-form{width: 75%;}
+@media (max-width: 1007px) {
+  .home {
+    position: relative;
+    top: 200px;
+  }
+  .SingUp {
+    top: 300px;
+  }
+  .navigation {
+    display: block;
+  }
+  .singUp-form {
+    width: 75%;
+  }
 }
-@media(max-width:850px){
-  .home{position: relative;top: 150px;}
+@media (max-width: 850px) {
+  .home {
+    position: relative;
+    top: 150px;
+  }
 }
-@media (max-width:830px) {
-  .banner{display: none;}
+@media (max-width: 830px) {
+  .banner {
+    display: none;
+  }
 }
