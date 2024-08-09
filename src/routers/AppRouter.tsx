@@ -10,6 +10,33 @@ import Home from "../views/Home";
 import SignAuth from "../views/Inicio/SignAuth";
 import { firebaseauthDTO } from "../server/dto/firebaseAuthDTO";
 import HomeUser from "../views/HomeUser";
+import { DataProductsDTO } from "../server/dto/dataProductsDTO";
+const itemData: DataProductsDTO[] = [
+  {
+    id: "a1",
+    name: "imageunsplash1",
+    category: "cat1",
+    subcategory: "subcat1",
+    price: 3000,
+    img: "src/static/images/banner/b2b.jpg",
+  },
+  {
+    id: "a1",
+    name: "imageunsplash3",
+    category: "cat3",
+    subcategory: "subcat1",
+    price: 3000,
+    img: "src/static/images/banner/app-online-store.gif",
+  },
+  {
+    id: "a1",
+    name: "imageunsplash2",
+    category: "cat2",
+    subcategory: "subcat1",
+    price: 3000,
+    img: "src/static/images/banner/11.png",
+  },
+];
 
 // Tipos para props
 interface AppProps {
@@ -24,7 +51,7 @@ const AppRouter: React.FC<AppProps> = ({ navigate }) => {
     token: "",
     entrepreneur: false,
   });
-  const [products, setproducts] = useState<any>([]);
+  const [products, setProducts] = useState<any>(itemData);
   const [featuredProducts, setFeaturedProducts] = useState<any>([]);
 
   return (
@@ -42,7 +69,7 @@ const AppRouter: React.FC<AppProps> = ({ navigate }) => {
                   featuredProducts={featuredProducts}
                   setFeaturedProducts={setFeaturedProducts}
                   products={products}
-                  setproducts={setproducts}
+                  setProducts={setProducts}
                 />
               }
             />
@@ -57,7 +84,7 @@ const AppRouter: React.FC<AppProps> = ({ navigate }) => {
                   user={user}
                   setUser={setUser}
                   products={products}
-                  setproducts={setproducts}
+                  setProducts={setProducts}
                   featuredProducts={featuredProducts}
                   setFeaturedProducts={setFeaturedProducts}
                 />

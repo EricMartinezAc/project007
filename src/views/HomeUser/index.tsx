@@ -26,41 +26,7 @@ import { Item } from "../../styles/styleMUI";
 
 import * as XLSX from "xlsx";
 import { categories } from "../../constants/order";
-const itemData: DataItem[] = [
-  {
-    id: "a1",
-    name: "imageunsplash1",
-    category: "cat1",
-    subcategory: "subcat1",
-    price: 3000,
-    img: "src/static/images/banner/b2b.jpg",
-  },
-  {
-    id: "a1",
-    name: "imageunsplash3",
-    category: "cat3",
-    subcategory: "subcat1",
-    price: 3000,
-    img: "src/static/images/banner/app-online-store.gif",
-  },
-  {
-    id: "a1",
-    name: "imageunsplash2",
-    category: "cat2",
-    subcategory: "subcat1",
-    price: 3000,
-    img: "src/static/images/banner/11.png",
-  },
-];
-
-interface DataItem {
-  id: string;
-  name: string;
-  category: string;
-  subcategory: string;
-  price: number;
-  img: string;
-}
+import { DataProductsDTO } from "../../server/dto/dataProductsDTO";
 
 const HomeUser = ({
   user,
@@ -73,7 +39,6 @@ const HomeUser = ({
   const [value, setValue] = React.useState<number>(0);
 
   const [fileProducts, setFileProducts] = useState<File[] | null>([]);
-  const [dataProducts, setDataProducts] = useState<DataItem[]>(itemData);
   const [ruleta, setRuleta] = useState([
     { header: "Más vendidos", state: true, link: FEATURED_PRODUCTS },
     { header: "Top 5 estrellas", state: false, link: RECOMMENDED_PRODUCTS },
@@ -92,7 +57,7 @@ const HomeUser = ({
       }
 
       const filesArray = Array.from(selectedFiles);
-      const newDataProducts = [...dataProducts];
+      const newDataProducts = [...products];
 
       for (let i = 0; i < filesArray.length; i++) {
         const file = filesArray[i];
@@ -108,7 +73,7 @@ const HomeUser = ({
           };
 
           console.log(`Imagen ${i + 1}:`, dataURL);
-          setDataProducts(newDataProducts);
+          setProducts(newDataProducts);
         };
 
         reader.readAsDataURL(file);
@@ -248,7 +213,7 @@ const HomeUser = ({
                         gap={8}
                         sx={{ width: "100%", height: 300 }} // Ajusta la altura fija aquí
                       >
-                        {dataProducts.map((item) => (
+                        {products.map((item: any) => (
                           <ImageListItem
                             key={item.img}
                             sx={{
