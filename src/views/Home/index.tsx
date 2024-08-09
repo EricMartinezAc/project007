@@ -19,10 +19,12 @@ import ProductShowcaseGrid from "../../components/product/ProductShowcaseGrid";
 import { rule } from "postcss";
 
 const Home = ({
+  user,
+  setUser,
+  products,
+  setproducts,
   featuredProducts,
   setFeaturedProducts,
-  recommendedProducts,
-  setRecommendedProducts,
 }: any) => {
   useDocumentTitle("Liiv-E | By: SIHENG");
   useScrollTop();
@@ -91,10 +93,10 @@ const Home = ({
           <Link to={RECOMMENDED_PRODUCTS}>See All</Link>
         </div>
         <div className="ProductShowcaseGrid-container">
-          {recommendedProducts.length > 0 ? (
-            recommendedProducts.map((item: any, product: any) => {
-              <div className="ProductShowcaseGrid-item">
-                <ProductShowcaseGrid products={recommendedProducts} />
+          {products.length > 0 ? (
+            products.map((item: any, product: any) => {
+              <div key={item} className="ProductShowcaseGrid-item">
+                <ProductShowcaseGrid products={product} />
               </div>;
             })
           ) : (

@@ -51,6 +51,7 @@ const Navigation = ({ user, setUser }: any) => {
     <>
       {isMobile && (
         <>
+          <div className="header-banner-mobile"></div>
           <div className="slider-button-mobile">
             <img className="logo-mobile" src={logo} alt="logomobile" />
             <button
@@ -66,6 +67,8 @@ const Navigation = ({ user, setUser }: any) => {
               disabledPaths={basketDisabledpathnames}
               pathname={pathname}
             />
+            {/* todo */}
+            <div className="headerAttachMobile"></div>
           </div>
         </>
       )}
@@ -149,8 +152,7 @@ const Navigation = ({ user, setUser }: any) => {
             </li>
             <div
               style={{
-                display:
-                  locationCurrent.pathname !== "/signAuth" ? "block" : "none",
+                display: locationCurrent.pathname === "/" ? "block" : "none",
               }}
             >
               <li

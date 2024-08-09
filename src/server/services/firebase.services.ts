@@ -105,6 +105,7 @@ export class Firebase {
     name,
     email,
     password,
+    entrepreneur,
   }: firebaseauthDTO): Promise<ResponseFirebaseDTO> => {
     try {
       console.log(`iniciando sesion con para: ${email}`);

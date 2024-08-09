@@ -7,4 +7,5 @@ export interface firebaseauthDTO {
   password: string;
   password2?: string;
   token?: string;
+  entrepreneur: boolean;
 }

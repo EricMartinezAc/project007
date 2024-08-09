@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import * as ROUTE from "../../constants/routes";
-import logo from "../../static/logo/logo.png";
+import logo from "../../static/logo/logo4.png";
 import BasketToggle from "../basket/BasketToggle";
 import Badge from "./Badge";
 import UserAvatar from "../../views/account/components/UserAvatar";
@@ -22,9 +22,8 @@ const MobileNavigation = ({
         onClick={toggleMenu}
         aria-label="Close Menu"
       >
-        Close
+        X
       </button>
-      <img className="logo-mobile-menu" alt="Logo" src={logo} />
       <ul className="mobile-nav-menu">
         <li>
           <Link to={ROUTE.SHOP}>SHOP</Link>

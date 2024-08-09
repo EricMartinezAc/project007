@@ -11,14 +11,29 @@ export const createAccount = async ({
   email,
   password,
   password2,
+  entrepreneur,
 }: firebaseauthDTO): Promise<DataUser> => {
-  if (!ClassValidatorAuth({ serv, name, email, password, password2 }))
+  if (
+    !ClassValidatorAuth({
+      serv,
+      name,
+      email,
+      password,
+      password2,
+      entrepreneur,
+    })
+  )
     throw new Error(
       "los datos deben cumplir políticas. Clic en ícono de interrogación '? para más detalles"
     );
   const datatime = Math.floor(Date.now() / 1000).toString();
   try {
-    const result = await firebase.createAccount({ name, email, password });
+    const result = await firebase.createAccount({
+      name,
+      email,
+      password,
+      entrepreneur,
+    });
     console.log(result);
     return { email, datatime, data: result };
   } catch (error) {

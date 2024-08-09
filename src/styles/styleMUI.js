@@ -1,4 +1,11 @@
-import { FormControlLabel, InputBase, TextField } from "@mui/material";
+import {
+  FormControlLabel,
+  InputBase,
+  Paper,
+  Switch,
+  TextField,
+} from "@mui/material";
+import { pink } from "@mui/material/colors";
 import { alpha, styled } from "@mui/material/styles";
 
 export const Search = styled("div")(({ theme }) => ({
@@ -83,4 +90,56 @@ export const FCntrlLabel = styled(FormControlLabel)(({ theme }) => ({
       color: "#a67",
     },
   },
+}));
+
+export const PinkSwitch = styled(Switch)(({ theme }) => ({
+  "& .MuiSwitch-switchBase.Mui-checked": {
+    color: pink[600],
+    "&:hover": {
+      backgroundColor: alpha(pink[600], theme.palette.action.hoverOpacity),
+    },
+  },
+  "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
+    backgroundColor: pink[600],
+  },
+}));
+
+export const TransparentFormControlLabel = styled(FormControlLabel)(
+  ({ theme }) => ({
+    backgroundColor: "transparent",
+    color: "white", // Letras blancas
+    border: "none", // Sin borde
+    "& .MuiSwitch-root": {
+      backgroundColor: "transparent",
+    },
+    "& .MuiSwitch-switchBase": {
+      color: theme.palette.warning.main,
+    },
+    // "& .MuiSwitch-track": {
+    //   backgroundColor: "transparent", // Fondo transparente para el track del switch
+    // },
+    "& .MuiSwitch-thumb": {
+      backgroundColor: theme.palette.warning.main, // Color del pulgar del switch
+    },
+    "&:hover": {
+      backgroundColor: "transparent",
+    },
+    "&.Mui-focused": {
+      backgroundColor: "transparent",
+      border: "none",
+    },
+    "& .MuiFormControlLabel-label": {
+      color: "white", // Letras blancas
+      fontSize: "1.35rem", // Tamaño de fuente más grande
+      whiteSpace: "nowrap",
+    },
+  })
+);
+
+export const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
 }));

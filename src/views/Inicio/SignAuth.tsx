@@ -1,29 +1,46 @@
-import { Alert, Box, Button, Radio, RadioGroup } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  Switch,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { createAccount } from "../../resolvers/createAccount";
 import { firebaseauthDTO } from "../../server/dto/firebaseAuthDTO";
-import { CustomTextField } from "../../styles/styleMUI";
+import {
+  CustomTextField,
+  TransparentFormControlLabel,
+} from "../../styles/styleMUI";
 import { useNavigate } from "react-router-dom";
 import { authAccount } from "../../resolvers/authAccount";
 import SpringModalPolicy from "../../components/common/ModalPolicy";
 
-function SignAuth({ token, setToken }: any) {
+function SignAuth({ user, setUser }: any) {
   const navigate = useNavigate();
   const [values, setValues] = useState<firebaseauthDTO>({
     name: "",
     email: "",
     password: "",
     password2: "",
+    entrepreneur: true,
   });
+  const [checkerEntrepreneur, setCheckerEntrepreneur] =
+    useState<boolean>(false);
   const [formType, setFormType] = useState<string>("auth");
-
   const [errorForm, setErrorForm] = useState<any>({ val: false });
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValues({
       ...values,
       [event.target.name]: event.target.value,
     });
+  };
+  const handleChangeCheckerEntrepreneur = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setCheckerEntrepreneur(event.target.checked);
   };
 
   const handleSubmit = async () => {
@@ -49,31 +66,48 @@ function SignAuth({ token, setToken }: any) {
             const auth_resp = await createAccount({
               serv: formType,
               ...values,
+              entrepreneur: checkerEntrepreneur,
             });
             alert(auth_resp.data.msj);
             if (!auth_resp.data.result || auth_resp.data.result === null) {
               window.location.reload();
             } else {
               try {
-                console.log("goal");
-                await setToken(auth_resp.data.token);
-                navigate("../");
+                await setUser({
+                  id: auth_resp.data.result.user.ui,
+                  serv: "logged",
+                  name: values.name,
+                  email: values.email,
+                  token: values.token,
+                  entrepreneur: checkerEntrepreneur,
+                });
+                await navigate("../HomeUser");
               } catch (error) {
-                console.log("auto goal");
                 alert(error);
                 window.location.reload();
               }
             }
           }
           if (formType === "auth") {
-            const auth_resp = await authAccount({ serv: formType, ...values });
+            const auth_resp = await authAccount({
+              serv: formType,
+              ...values,
+              entrepreneur: checkerEntrepreneur,
+            });
             alert(auth_resp.data.msj);
             if (!auth_resp.data.result || auth_resp.data.result === null) {
               window.location.reload();
             } else {
               try {
-                await setToken(auth_resp.data.token);
-                navigate("../");
+                await setUser({
+                  id: auth_resp.data.result.user.ui,
+                  serv: "logged",
+                  name: values.name,
+                  email: values.email,
+                  token: values.token,
+                  entrepreneur: checkerEntrepreneur,
+                });
+                await navigate("../HomeUser");
               } catch (error) {
                 alert(error);
                 window.location.reload();
@@ -111,6 +145,16 @@ function SignAuth({ token, setToken }: any) {
         >
           {errorForm.msj}
         </Alert>
+        <TransparentFormControlLabel
+          control={
+            <Switch
+              checked={checkerEntrepreneur}
+              onChange={handleChangeCheckerEntrepreneur}
+              color="warning"
+            />
+          }
+          label="Eres emprendedor?"
+        />
         <CustomTextField
           label="Ingrese su nombre"
           variant="outlined"

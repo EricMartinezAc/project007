@@ -36,6 +36,9 @@ body {
   align-items: center;
   flex-direction: column; /* Organiza los elementos en una columna */
 }
+.header-banner-mobile {
+  display: none;
+}
 .logo-mobile {
   margin-bottom: 20px;
   width: 170px;
@@ -65,7 +68,7 @@ body {
   left: 0px;
   width: 100%;
   height: 40px;
-  background-color: chocolate;
+  background-color: rgb(32, 28, 25);
   color: white;
   border: none;
   padding: 0;
@@ -81,7 +84,8 @@ body {
 /* Botón de cierre dentro del menú móvil */
 .menu-close {
   position: absolute;
-  top: 10px;
+  font-size: 20px;
+  top: 50px;
   right: 10px;
   width: 50px; /* Ancho fijo del botón */
   height: 50px; /* Alto fijo del botón */
@@ -90,12 +94,11 @@ body {
   border: none;
   padding: 0; /* Elimina el padding para ajustar el tamaño */
   cursor: pointer;
-  border-radius: 50%; /* Botón redondeado */
-  font-size: 1.2rem; /* Tamaño del texto */
-  display: flex; /* Flexbox para centrar el ícono */
+  border-radius: 50%; 
+  display: flex; 
   justify-content: center;
   align-items: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para mayor visibilidad */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
 }
 
 /* Estilos para el menú móvil */
@@ -173,7 +176,6 @@ body {
   border: none;
   border-radius: 10px;
 }
-
 @keyframes bannerImg {
   0% {
     background-image: url("./static/images/banner/ecomm.gif");
@@ -232,6 +234,11 @@ body {
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+.content-user{
+
+  position: relative;
+  top:125px;
+}
 
 /* Mostrar el botón en móviles */
 @media (max-width: 1200px) {
@@ -241,8 +248,7 @@ body {
   }
   .menu-toggle {
     display: block; /* Mostrar el botón en pantallas móviles */
-    position: absolute;
-    top: 170px;
+    position: relative;
     color: white;
     border: none;
     padding: 0;
@@ -280,15 +286,77 @@ body {
   .singUp-form {
     width: 75%;
   }
-}
-@media (max-width: 850px) {
-  .home {
-    position: relative;
-    top: 150px;
+  .content-user{
+    top: 300px;
   }
 }
-@media (max-width: 830px) {
+@media (max-width: 850px) {
+  body {
+    background: coral;
+  }
+  .promMenu{
+    width: 100%;
+    height: 120px;
+    background-color: #4caf50;
+  }
+  .home {
+    position: relative;
+    background-color: #eee;
+    top: 20px;
+  }
+  .ruletaHeader {
+    display: none;
+  }
+  .logo-mobile {
+    position: absolute;
+    z-index: 9999;
+    right: 5px;
+    top: -150px;
+    height: 50px;
+    width: 50px;
+  }
+
+  @keyframes navlogo {
+    0% {
+      background-color: #1f0d12;
+      color: #eee;
+      content: 'COMPRA Y OBTEN PUNTOS';
+      background-image: url("./static/images/banner/bbe868e9-05ef-470f-ba3a-66cc22265202.gif");
+    }
+    25% {
+      background-image: url("./static/images/banner/bbe868e9-05ef-470f-ba3a-66cc22265202.gif");
+    }
+    50% {
+      background-image: url("https://exitocol.vtexassets.com/assets/vtex.file-manager-graphql/images/c60fbdad-f9e2-4093-a67c-65acc711facf___f2cb5212469e6c4dac06ff5caec17247.jpg");
+    }
+    75% {
+      background-image: url("https://exitocol.vtexassets.com/assets/vtex.file-manager-graphql/images/273c7836-4207-4bb1-b035-ab2e3ef22fbb___6096967431d0d6c32f8fdb776d4570b1.png");
+    }
+    100% {
+      background-image: url("./static/images/banner/co-50009109-88f9f3065be0c345e2339e41b8f3b8d0_xxhdpi.png");
+    }
+  }
+
+  .header-banner-mobile {
+    display: block;
+    width: 100%;
+    height: 150px;
+    animation: navlogo 20s infinite;
+    background-size: cover;
+    background-position: center;
+    background-repeat: none;
+    background-size: 100% 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .header-banner-mobile::before {
+    transition: opacity 100s ease-in-out;
+  }
   .banner {
     display: none;
   }
+  .menu-toggle{top: 0px;}
+  .content-user{top:65px}
+}
+@media (max-width: 830px) {
 }
