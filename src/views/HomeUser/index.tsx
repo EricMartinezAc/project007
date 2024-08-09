@@ -104,7 +104,7 @@ const HomeUser = ({
             price: row[4] || 0,
             img: row[5] || "",
           }));
-          setDataProducts(processedData);
+          setProducts(processedData);
         }
       };
       reader.readAsArrayBuffer(file);
