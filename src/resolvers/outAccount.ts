@@ -1,14 +1,12 @@
+import { CookiesDTO } from "../dto";
+import { destroyAllCookies } from "../server/cookies";
 import { firebase } from "../server/services/firebase.services";
 
-export const OutAccount = async (): Promise<any> => {
+export const OutAccount = async (cookies: CookiesDTO): Promise<void> => {
   try {
-    const result = await firebase.signOut();
-    console.log(result);
-    return {
-      email: "",
-      datatime: Math.floor(Date.now() / 1000).toString(),
-      data: result,
-    };
+    if (!cookies) throw new Error("sin datos");
+    destroyAllCookies(cookies, ["token", "entrepreneur"]);
+    await firebase.signOut();
   } catch (error) {
     throw new Error(`${error}`);
   }

@@ -14,7 +14,7 @@ import {
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
-import { firebaseauthDTO } from "../../server/dto/firebaseAuthDTO";
+import { userDTO } from "../../dto";
 import {
   BLACK_DAYS,
   FEATURED_PRODUCTS,
@@ -26,7 +26,7 @@ import { Item } from "../../styles/styleMUI";
 
 import * as XLSX from "xlsx";
 import { categories } from "../../constants/order";
-import { DataProductsDTO } from "../../server/dto/dataProductsDTO";
+import { DataProductsDTO } from "../../dto/dataProductsDTO";
 
 const HomeUser = ({
   user,
@@ -35,9 +35,10 @@ const HomeUser = ({
   setFeaturedProducts,
   products,
   setProducts,
+  cookies,
 }: any) => {
   const [value, setValue] = React.useState<number>(0);
-
+  console.log(cookies);
   const [fileProducts, setFileProducts] = useState<File[] | null>([]);
   const [ruleta, setRuleta] = useState([
     { header: "Más vendidos", state: true, link: FEATURED_PRODUCTS },

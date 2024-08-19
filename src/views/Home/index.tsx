@@ -1,5 +1,5 @@
-import React, { Component, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { Component, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   SHOP,
   PRODUCTS,
@@ -17,18 +17,24 @@ import { ArrowRightOutlined } from "@ant-design/icons";
 import MessageDisplay from "../../components/common/MessageDisplay";
 import ProductShowcaseGrid from "../../components/product/ProductShowcaseGrid";
 import { rule } from "postcss";
+import { CookiesDTO } from "../../dto";
 
-const Home = ({
-  user,
-  setUser,
-  products,
-  setproducts,
-  featuredProducts,
-  setFeaturedProducts,
-}: any) => {
+const Home = (
+  {
+    user,
+    setUser,
+    products,
+    setproducts,
+    featuredProducts,
+    setFeaturedProducts,
+  }: any,
+  cookies: CookiesDTO
+) => {
   useDocumentTitle("Liiv-E | By: SIHENG");
   useScrollTop();
 
+  const navigate = useNavigate();
+  console.log("home", cookies);
   const [ruleta, setRuleta] = useState([
     { header: "Más vendidos", state: true, link: FEATURED_PRODUCTS },
     { header: "Top 5 estrellas", state: false, link: RECOMMENDED_PRODUCTS },

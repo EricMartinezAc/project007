@@ -1,18 +1,12 @@
-import { firebaseauthDTO } from "../server/dto/firebaseAuthDTO";
-import { DataUser } from "../server/dto/dataUser";
+import { ResponseFirebaseDTO, userDTO } from "../dto";
 
 import { firebase } from "../server/services/firebase.services";
 import { ClassValidatorAuth } from "./Middlewares/ClassValidatorAuth";
-import jwt from "jsonwebtoken";
 
-export const createAccount = async ({
-  serv,
-  name,
-  email,
-  password,
-  password2,
-  entrepreneur,
-}: firebaseauthDTO): Promise<DataUser> => {
+export const createAccount = async (
+  serv: string,
+  { name, photoURL, email, password, password2, entrepreneur }: userDTO
+): Promise<ResponseFirebaseDTO> => {
   if (
     !ClassValidatorAuth({
       serv,
@@ -30,12 +24,14 @@ export const createAccount = async ({
   try {
     const result = await firebase.createAccount({
       name,
+      photoURL,
       email,
+      datatime,
       password,
       entrepreneur,
     });
     console.log(result);
-    return { email, datatime, data: result };
+    return result;
   } catch (error) {
     throw new Error(`${error}`);
   }

@@ -1,62 +1,47 @@
 // AppRouter.tsx
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Cookies from "universal-cookie";
 
 // Componentes
-import { HOME, SIGNAUTH, HOME_USER } from "../constants/routes";
+import { HOME, SIGNAUTH, HOME_USER, REMOTE_API } from "../constants/routes";
 import { Navigation } from "../components/common";
 import { Basket } from "../components/basket";
 import Home from "../views/Home";
 import SignAuth from "../views/Inicio/SignAuth";
-import { firebaseauthDTO } from "../server/dto/firebaseAuthDTO";
+import { userDTO, productDTO } from "../dto";
 import HomeUser from "../views/HomeUser";
-import { DataProductsDTO } from "../server/dto/dataProductsDTO";
-const itemData: DataProductsDTO[] = [
-  {
-    id: "a1",
-    name: "imageunsplash1",
-    category: "cat1",
-    subcategory: "subcat1",
-    price: 3000,
-    img: "src/static/images/banner/b2b.jpg",
-  },
-  {
-    id: "a1",
-    name: "imageunsplash3",
-    category: "cat3",
-    subcategory: "subcat1",
-    price: 3000,
-    img: "src/static/images/banner/app-online-store.gif",
-  },
-  {
-    id: "a1",
-    name: "imageunsplash2",
-    category: "cat2",
-    subcategory: "subcat1",
-    price: 3000,
-    img: "src/static/images/banner/11.png",
-  },
-];
+import { FetchProductsForClient } from "../resolvers/fetch";
+import axios from "axios";
 
-// Tipos para props
-interface AppProps {
-  navigate: (path: string) => void;
-}
-
-const AppRouter: React.FC<AppProps> = ({ navigate }) => {
-  const [user, setUser] = useState<firebaseauthDTO>({
+const AppRouter: React.FC = () => {
+  const apiClient = axios.create({
+    baseURL: REMOTE_API,
+    timeout: 10000, // Tiempo de espera de 10 segundos
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const cookies = new Cookies();
+  const [user, setUser] = useState<userDTO>({
     name: "",
     email: "",
     password: "",
+    password2: "",
     token: "",
     entrepreneur: false,
+    id_products: [],
   });
-  const [products, setProducts] = useState<any>(itemData);
-  const [featuredProducts, setFeaturedProducts] = useState<any>([]);
+  const [products, setProducts] = useState<productDTO[]>([]); //productos a la venta
+  const [featuredProducts, setFeaturedProducts] = useState<any>([]); //productos mas vendidos a mostrar al cliente
+
+  useEffect(() => {
+    if (!user.entrepreneur) FetchProductsForClient(apiClient);
+  }, []);
 
   return (
     <Router>
-      <Navigation user={user} setUser={setUser} />
+      <Navigation user={user} setUser={setUser} cookies={cookies} />
       <div>
         <div className="Renderable">
           <Routes>
@@ -70,12 +55,15 @@ const AppRouter: React.FC<AppProps> = ({ navigate }) => {
                   setFeaturedProducts={setFeaturedProducts}
                   products={products}
                   setProducts={setProducts}
+                  cookies={cookies}
                 />
               }
             />
             <Route
               path={SIGNAUTH}
-              element={<SignAuth user={user} setUser={setUser} />}
+              element={
+                <SignAuth user={user} setUser={setUser} cookies={cookies} />
+              }
             />
             <Route
               path={HOME_USER}
@@ -87,6 +75,7 @@ const AppRouter: React.FC<AppProps> = ({ navigate }) => {
                   setProducts={setProducts}
                   featuredProducts={featuredProducts}
                   setFeaturedProducts={setFeaturedProducts}
+                  cookies={cookies}
                 />
               }
             />

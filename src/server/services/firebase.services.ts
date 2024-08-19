@@ -31,6 +31,7 @@ import {
   startAfter,
   getDocs,
   Firestore,
+  addDoc,
 } from "firebase/firestore";
 import {
   getStorage,
@@ -41,8 +42,7 @@ import {
   deleteObject,
 } from "firebase/storage";
 import { firebaseConfig } from "../../config/firebaseConfig";
-import { firebaseauthDTO } from "../dto/firebaseAuthDTO";
-import { ResponseFirebaseDTO } from "../dto/responseFirebaseDTO";
+import { userDTO, productDTO, ResponseFirebaseDTO } from "../../dto";
 
 export class Firebase {
   private app: FirebaseApp;
@@ -69,8 +69,10 @@ export class Firebase {
     name,
     photoURL,
     email,
+    datatime,
     password,
-  }: firebaseauthDTO): Promise<ResponseFirebaseDTO> => {
+    entrepreneur,
+  }: userDTO): Promise<ResponseFirebaseDTO> => {
     try {
       console.log(`Creando cuenta: ${email}`);
       const result = await createUserWithEmailAndPassword(
@@ -80,7 +82,10 @@ export class Firebase {
       );
       const user = result.user;
       const token = (await result.user.getIdToken(true)).toString();
-      updateProfile(user, { displayName: name, photoURL });
+      updateProfile(user, {
+        displayName: name + "entrepreneuruser" + entrepreneur + datatime,
+        photoURL,
+      });
       return {
         result,
         msj: `usuario ${email} registrado satisfactoriamente`,
@@ -106,7 +111,7 @@ export class Firebase {
     email,
     password,
     entrepreneur,
-  }: firebaseauthDTO): Promise<ResponseFirebaseDTO> => {
+  }: userDTO): Promise<ResponseFirebaseDTO> => {
     try {
       console.log(`iniciando sesion con para: ${email}`);
       const result = await signInWithEmailAndPassword(
@@ -114,11 +119,26 @@ export class Firebase {
         email,
         password
       );
-      const user = result.user;
-      if (user.displayName !== name)
-        throw new Error("usuario log no es compatible");
-      const token = (await result.user.getIdToken(true)).toString();
-      return { result, msj: `Bienvenido de vuelta ${email}`, token };
+      const user: any = result.user;
+      const rolMatch = user.displayName.match(/true|false/);
+      const nameUser = user.displayName.split("entrepreneuruser")[0];
+      const rolValue = rolMatch[0] === "true";
+      let dataTime_ = user.displayName;
+      dataTime_ = dataTime_.replace(nameUser, "");
+      dataTime_ = dataTime_.replace(rolMatch[0], "");
+
+      if (name !== nameUser || entrepreneur !== rolValue)
+        throw new Error("nombre no coincide");
+
+      const token = (await user.getIdToken(true)).toString();
+      return {
+        result,
+        msj: `Bienvenido de vuelta ${email}`,
+        token,
+        user: name,
+        rol: rolValue,
+        datatime: dataTime_,
+      };
     } catch (error) {
       if (error instanceof Error) {
         return {
@@ -173,7 +193,7 @@ export class Firebase {
     }
   };
 
-  signOut = async () => {
+  signOut = async ():Promise<void> => {
     try {
       console.log("Signing out");
       await signOut(this.auth);
@@ -381,7 +401,17 @@ export class Firebase {
   };
 
   // STORAGE ACTIONS ------------
-
+  addProduct = async (product: { [key: string]: productDTO }) => {
+    try {
+      console.log("Adding new product:", product);
+      const productRef = await addDoc(collection(this.db, "products"), product);
+      console.log("Product added successfully with ID:", productRef.id);
+      return productRef.id;
+    } catch (error) {
+      console.error("Error adding product:", error);
+      throw new Error("Failed to add product");
+    }
+  };
   uploadFile = async (file: File, path: string) => {
     try {
       console.log(`Uploading file to path: ${path}`);

@@ -12,8 +12,9 @@ import {
 } from "../../styles/styleMUI";
 import { OutAccount } from "../../resolvers/outAccount";
 import MobileNavigation from "./MobileNavigation";
+import { destroyAllCookies } from "../../server/cookies";
 
-const Navigation = ({ user, setUser }: any) => {
+const Navigation = ({ user, setUser, cookies }: any) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 830);
   const navbar = useRef(null);
@@ -29,8 +30,22 @@ const Navigation = ({ user, setUser }: any) => {
   }, []);
 
   const Logout = () => {
-    OutAccount();
-    setUser({ name: "", email: "", Password: "" });
+    OutAccount(cookies);
+    setUser({
+      id: "",
+      serv: "",
+      name: "",
+      photoURL: "",
+      email: "",
+      password: "",
+      password2: "",
+      datatime: "",
+      token: "",
+      entrepreneur: false,
+      createSesionAt: "",
+      id_products: [],
+    });
+    destroyAllCookies(cookies, ["token", "entrepreneur"]);
   };
 
   // disable the basket toggle to these pathnames
@@ -140,54 +155,44 @@ const Navigation = ({ user, setUser }: any) => {
                 )}
               </BasketToggle>
             </li>
-
-            <li
-              style={{
-                display:
-                  locationCurrent.pathname !== "/signAuth" ? "block" : "none",
-              }}
-              className="navigation-menu-item"
-            >
-              <UserAvatar />
-            </li>
-            <div
-              style={{
-                display: locationCurrent.pathname === "/" ? "block" : "none",
-              }}
-            >
-              <li
-                style={{
-                  display: !user.token ? "block" : "none",
-                }}
-                className="navigation-action"
-              >
-                <Link
-                  id="linkSesion"
-                  className="button button-small  margin-left-s"
-                  to={ROUTE.SIGNAUTH}
-                >
-                  INICIA SESIÓN
-                </Link>
-              </li>
-
-              <li
+          </ul>
+          {locationCurrent.pathname !== "/signAuth" && (
+            <>
+              <div
                 style={{
                   display:
-                    user.token && user.token.length > 5 ? "block" : "none",
+                    locationCurrent.pathname !== "/signAuth" ? "block" : "none",
                 }}
-                className="navigation-action"
+                className="navigation-menu-item"
               >
-                <Link
-                  onClick={Logout}
-                  id="outSesion"
-                  className="button button-small  margin-left-s"
-                  to={ROUTE.SIGNAUTH}
-                >
-                  CERRAR SESIÓN
-                </Link>
-              </li>
-            </div>
-          </ul>
+                <UserAvatar />
+              </div>
+              <div>
+                {!cookies.get("token") ? (
+                  <li className="navigation-action">
+                    <Link
+                      id="linkSesion"
+                      className="button button-small margin-left-s"
+                      to={ROUTE.SIGNAUTH}
+                    >
+                      INICIA SESIÓN
+                    </Link>
+                  </li>
+                ) : (
+                  <li className="navigation-action">
+                    <Link
+                      onClick={Logout}
+                      id="outSesion"
+                      className="button button-small margin-left-s"
+                      to={ROUTE.HOME}
+                    >
+                      CERRAR SESIÓN
+                    </Link>
+                  </li>
+                )}
+              </div>
+            </>
+          )}
         </nav>
       )}
     </>

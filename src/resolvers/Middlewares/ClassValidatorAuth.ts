@@ -1,4 +1,4 @@
-import { firebaseauthDTO } from "../../server/dto/firebaseAuthDTO";
+import { userDTO } from "../../dto";
 
 // Regex para un email válido
 const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -6,8 +6,8 @@ const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 // Regex para una contraseña con letras, números o signos especiales, entre 4 y 8 caracteres
 const regexPsw = /^[A-Za-z\d!@#$%&*?]{4,8}$/;
 
-// Regex para un nombre que contenga solo letras y al menos 2 espacios
-const regexTotalName = /^(?=(?:[a-zA-Z]*\s){2,})[a-zA-Z\s]+$/;
+// Permite letras con tildes, diéresis, ñ, ç, ã, õ, y espacios opcionales
+const regexTotalName = /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑçÇãõÃÕ\s]+$/;
 
 export const ClassValidatorAuth = ({
   name,
@@ -15,7 +15,7 @@ export const ClassValidatorAuth = ({
   password,
   password2,
   serv,
-}: firebaseauthDTO): boolean => {
+}: userDTO): boolean => {
   if (serv === "") return false;
   if (serv === "regtr" && password !== password2) return false;
   console.log("01", regexEmail.test(email));

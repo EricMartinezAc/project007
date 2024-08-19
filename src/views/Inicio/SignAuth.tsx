@@ -1,15 +1,8 @@
-import {
-  Alert,
-  Box,
-  Button,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-  Switch,
-} from "@mui/material";
+import { Alert, Box, Button, Switch } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import DOMPurify from "dompurify";
 import { createAccount } from "../../resolvers/createAccount";
-import { firebaseauthDTO } from "../../server/dto/firebaseAuthDTO";
+import { userDTO } from "../../dto";
 import {
   CustomTextField,
   TransparentFormControlLabel,
@@ -17,45 +10,49 @@ import {
 import { useNavigate } from "react-router-dom";
 import { authAccount } from "../../resolvers/authAccount";
 import SpringModalPolicy from "../../components/common/ModalPolicy";
+import { CreateOrUpdateCookies } from "../../server/cookies";
 
-function SignAuth({ user, setUser }: any) {
+function SignAuth({ user, setUser, cookies }: any) {
   const navigate = useNavigate();
-  const [values, setValues] = useState<firebaseauthDTO>({
-    name: "",
-    email: "",
-    password: "",
-    password2: "",
-    entrepreneur: true,
-  });
-  const [checkerEntrepreneur, setCheckerEntrepreneur] =
-    useState<boolean>(false);
+
   const [formType, setFormType] = useState<string>("auth");
+  const [dataForm, setDataForm] = useState<userDTO>(user);
   const [errorForm, setErrorForm] = useState<any>({ val: false });
+
+  useEffect(() => {
+    console.log(cookies.getAll());
+    if (cookies.get("token")) navigate("../HomeUser");
+  }, []);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value,
-    });
+    const sanitizedValue = DOMPurify.sanitize(event.target.value);
+    setDataForm((prevDataForm: userDTO) => ({
+      ...prevDataForm,
+      [event.target.name]: sanitizedValue,
+    }));
   };
-  const handleChangeCheckerEntrepreneur = (
-    event: React.ChangeEvent<HTMLInputElement>
+
+  const handleChangeEntrepreneur = async (
+    e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setCheckerEntrepreneur(event.target.checked);
+    setDataForm((prevUser: userDTO) => ({
+      ...prevUser,
+      entrepreneur: e.target.checked,
+    }));
   };
 
   const handleSubmit = async () => {
     if (
-      values.email === "" ||
-      values.password === "" ||
-      values.name === "" ||
-      values.password === ""
+      dataForm.email === "" ||
+      dataForm.password === "" ||
+      dataForm.name === "" ||
+      dataForm.password === ""
     ) {
       setErrorForm({ msj: "Debe diligenciar todo el formulario", val: true });
       setTimeout(() => {
         setErrorForm({ val: false });
       }, 4000);
     } else {
-      if (values.password !== values.password2) {
+      if (dataForm.password !== dataForm.password2) {
         setTimeout(() => {
           setErrorForm({ val: false });
         }, 4000);
@@ -63,23 +60,23 @@ function SignAuth({ user, setUser }: any) {
       } else {
         try {
           if (formType === "regtr") {
-            const auth_resp = await createAccount({
-              serv: formType,
-              ...values,
-              entrepreneur: checkerEntrepreneur,
-            });
-            alert(auth_resp.data.msj);
-            if (!auth_resp.data.result || auth_resp.data.result === null) {
+            const auth_resp = await createAccount(formType, dataForm);
+            alert(auth_resp.msj);
+            if (!auth_resp.result || auth_resp.result === null) {
               window.location.reload();
             } else {
               try {
                 await setUser({
-                  id: auth_resp.data.result.user.ui,
+                  id: auth_resp.result.user.ui,
                   serv: "logged",
-                  name: values.name,
-                  email: values.email,
-                  token: values.token,
-                  entrepreneur: checkerEntrepreneur,
+                  name: dataForm.name,
+                  email: dataForm.email,
+                  token: auth_resp.token,
+                  entrepreneur: dataForm.entrepreneur,
+                });
+                await CreateOrUpdateCookies(cookies, {
+                  token: auth_resp.token,
+                  entrepreneur: dataForm.entrepreneur,
                 });
                 await navigate("../HomeUser");
               } catch (error) {
@@ -89,23 +86,24 @@ function SignAuth({ user, setUser }: any) {
             }
           }
           if (formType === "auth") {
-            const auth_resp = await authAccount({
-              serv: formType,
-              ...values,
-              entrepreneur: checkerEntrepreneur,
-            });
-            alert(auth_resp.data.msj);
-            if (!auth_resp.data.result || auth_resp.data.result === null) {
+            const auth_resp = await authAccount(formType, dataForm);
+            alert('server response: '+auth_resp.msj);
+            if (!auth_resp.result || auth_resp.result === null) {
               window.location.reload();
             } else {
               try {
                 await setUser({
-                  id: auth_resp.data.result.user.ui,
+                  id: auth_resp.result.user.ui,
                   serv: "logged",
-                  name: values.name,
-                  email: values.email,
-                  token: values.token,
-                  entrepreneur: checkerEntrepreneur,
+                  name: dataForm.name,
+                  email: dataForm.email,
+                  token: auth_resp.token,
+                  entrepreneur: dataForm.entrepreneur,
+                });
+                console.log;
+                await CreateOrUpdateCookies(cookies, {
+                  token: auth_resp.token,
+                  entrepreneur: dataForm.entrepreneur,
                 });
                 await navigate("../HomeUser");
               } catch (error) {
@@ -129,7 +127,7 @@ function SignAuth({ user, setUser }: any) {
         "& .MuiFullWidthCustomTextField-root": { m: 1, width: "25ch" },
       }}
       noValidate
-      autoComplete="off"
+      autoComplete="on"
     >
       {" "}
       <SpringModalPolicy />
@@ -148,8 +146,8 @@ function SignAuth({ user, setUser }: any) {
         <TransparentFormControlLabel
           control={
             <Switch
-              checked={checkerEntrepreneur}
-              onChange={handleChangeCheckerEntrepreneur}
+              checked={dataForm.entrepreneur}
+              onChange={handleChangeEntrepreneur}
               color="warning"
             />
           }
@@ -160,7 +158,7 @@ function SignAuth({ user, setUser }: any) {
           variant="outlined"
           fullWidth
           name="name"
-          value={values.name}
+          value={dataForm.name}
           onChange={handleChange}
           required
         />
@@ -169,7 +167,7 @@ function SignAuth({ user, setUser }: any) {
           variant="outlined"
           fullWidth
           name="email"
-          value={values.email}
+          value={dataForm.email}
           onChange={handleChange}
           required
         />
@@ -181,7 +179,7 @@ function SignAuth({ user, setUser }: any) {
               variant="outlined"
               fullWidth
               name="password"
-              value={values.password}
+              value={dataForm.password}
               onChange={handleChange}
               required
             />
@@ -195,7 +193,7 @@ function SignAuth({ user, setUser }: any) {
               variant="outlined"
               fullWidth
               name="password2"
-              value={values.password2}
+              value={dataForm.password2}
               onChange={handleChange}
               required
             />
