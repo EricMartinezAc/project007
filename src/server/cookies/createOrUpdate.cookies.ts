@@ -25,9 +25,11 @@ export const CreateOrUpdateCookies = async (
   Object.entries(data).forEach(([key, value]) => {
     if (value !== undefined) {
       cookies.set(key, value, defaultCookieOptions);
+      console.log(cookies.get(key));
 
       if (window.location.hostname === "localhost") {
         cookies.set(key, value, localhostCookieOptions);
+        console.log(cookies.get(key));
       }
     }
   });

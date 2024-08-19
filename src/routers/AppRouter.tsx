@@ -23,21 +23,9 @@ const AppRouter: React.FC = () => {
     },
   });
   const cookies = new Cookies();
-  const [user, setUser] = useState<userDTO>({
-    name: "",
-    email: "",
-    password: "",
-    password2: "",
-    token: "",
-    entrepreneur: false,
-    id_products: [],
-  });
+  const [user, setUser] = useState<userDTO>(cookies.get("user"));
   const [products, setProducts] = useState<productDTO[]>([]); //productos a la venta
   const [featuredProducts, setFeaturedProducts] = useState<any>([]); //productos mas vendidos a mostrar al cliente
-
-  useEffect(() => {
-    if (!user.entrepreneur) FetchProductsForClient(apiClient);
-  }, []);
 
   return (
     <Router>

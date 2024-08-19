@@ -38,7 +38,8 @@ const HomeUser = ({
   cookies,
 }: any) => {
   const [value, setValue] = React.useState<number>(0);
-  console.log(cookies);
+  console.log("cookies", cookies);
+  console.log("user", user);
   const [fileProducts, setFileProducts] = useState<File[] | null>([]);
   const [ruleta, setRuleta] = useState([
     { header: "Más vendidos", state: true, link: FEATURED_PRODUCTS },

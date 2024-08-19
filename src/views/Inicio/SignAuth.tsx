@@ -67,14 +67,16 @@ function SignAuth({ user, setUser, cookies }: any) {
             } else {
               try {
                 await setUser({
-                  id: auth_resp.result.user.ui,
+                  id: auth_resp.result.user.uid,
                   serv: "logged",
                   name: dataForm.name,
                   email: dataForm.email,
+                  password: "",
                   token: auth_resp.token,
                   entrepreneur: dataForm.entrepreneur,
                 });
                 await CreateOrUpdateCookies(cookies, {
+                  user,
                   token: auth_resp.token,
                   entrepreneur: dataForm.entrepreneur,
                 });
@@ -87,21 +89,23 @@ function SignAuth({ user, setUser, cookies }: any) {
           }
           if (formType === "auth") {
             const auth_resp = await authAccount(formType, dataForm);
-            alert('server response: '+auth_resp.msj);
+            alert("server response: " + auth_resp.msj);
             if (!auth_resp.result || auth_resp.result === null) {
               window.location.reload();
             } else {
               try {
+                console.log(auth_resp.result);
                 await setUser({
-                  id: auth_resp.result.user.ui,
+                  id: auth_resp.result.user.uid,
                   serv: "logged",
                   name: dataForm.name,
                   email: dataForm.email,
+                  password: "",
                   token: auth_resp.token,
                   entrepreneur: dataForm.entrepreneur,
                 });
-                console.log;
                 await CreateOrUpdateCookies(cookies, {
+                  user,
                   token: auth_resp.token,
                   entrepreneur: dataForm.entrepreneur,
                 });

@@ -19,22 +19,23 @@ import ProductShowcaseGrid from "../../components/product/ProductShowcaseGrid";
 import { rule } from "postcss";
 import { CookiesDTO } from "../../dto";
 
-const Home = (
-  {
-    user,
-    setUser,
-    products,
-    setproducts,
-    featuredProducts,
-    setFeaturedProducts,
-  }: any,
-  cookies: CookiesDTO
-) => {
+const Home = ({
+  user,
+  setUser,
+  products,
+  setproducts,
+  featuredProducts,
+  setFeaturedProducts,
+  cookies,
+}: any) => {
   useDocumentTitle("Liiv-E | By: SIHENG");
   useScrollTop();
 
   const navigate = useNavigate();
-  console.log("home", cookies);
+  useEffect(() => {
+    console.log(cookies.getAll());
+  }, []);
+
   const [ruleta, setRuleta] = useState([
     { header: "Más vendidos", state: true, link: FEATURED_PRODUCTS },
     { header: "Top 5 estrellas", state: false, link: RECOMMENDED_PRODUCTS },
