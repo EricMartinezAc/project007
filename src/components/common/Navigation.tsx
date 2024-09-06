@@ -29,6 +29,10 @@ const Navigation = ({ user, setUser, cookies }: any) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const handleClickAvatar = () => {
+    window.location.href = ROUTE.THIS_PERFIL;
+  };
+
   const Logout = () => {
     OutAccount(cookies);
     setUser({
@@ -157,41 +161,30 @@ const Navigation = ({ user, setUser, cookies }: any) => {
             </li>
           </ul>
           {locationCurrent.pathname !== "/signAuth" && (
-            <>
-              <div
-                style={{
-                  display:
-                    locationCurrent.pathname !== "/signAuth" ? "block" : "none",
-                }}
-                className="navigation-menu-item"
-              >
-                <UserAvatar />
-              </div>
-              <div>
-                {!cookies.get("token") ? (
-                  <li className="navigation-action">
-                    <Link
-                      id="linkSesion"
-                      className="button button-small margin-left-s"
-                      to={ROUTE.SIGNAUTH}
-                    >
-                      INICIA SESIÓN
-                    </Link>
-                  </li>
-                ) : (
-                  <li className="navigation-action">
-                    <Link
-                      onClick={Logout}
-                      id="outSesion"
-                      className="button button-small margin-left-s"
-                      to={ROUTE.HOME}
-                    >
-                      CERRAR SESIÓN
-                    </Link>
-                  </li>
-                )}
-              </div>
-            </>
+            <div className="container-nav-sesionArea">
+              <UserAvatar
+                locationCurrent={locationCurrent}
+                handleClickAvatar={handleClickAvatar}
+              />
+              {!cookies.get("token") ? (
+                <Link
+                  className="item-nav-sesionArea "
+                  id="linkSesion"
+                  to={ROUTE.SIGNAUTH}
+                >
+                  INICIA SESIÓN
+                </Link>
+              ) : (
+                <Link
+                  className="item-nav-sesionArea "
+                  onClick={Logout}
+                  id="outSesion"
+                  to={ROUTE.HOME}
+                >
+                  CERRAR
+                </Link>
+              )}
+            </div>
           )}
         </nav>
       )}

@@ -1,28 +1,18 @@
 import { REMOTE_API } from "../../constants/routes";
-import { productDTO } from "../../dto";
+import { CookiesDTO, productDTO } from "../../dto";
 //datos de productos para clientes
 export const FetchProductsForClient = async (
   apiClient: any
 ): Promise<productDTO[]> => {
   if (!apiClient) throw new Error("sin datos");
-  const dateNow = new Date();
-  const result = await apiClient.post(`${REMOTE_API}/imgs/products`);
-  return [
-    {
-      id: "string",
-      id_user: "string",
-      name: "string",
-      description: "string",
-      price: 0,
-      category: "string",
-      stock: 0,
-      imageUrl: "string",
-      createdAt: dateNow,
-      updatedAt: dateNow,
-      ratings: 0,
-      reviews: [],
-      isFeatured: false,
-      tags: [],
-    },
-  ];
+  const result = await apiClient.get(`${REMOTE_API}`);
+  console.log("resultado fetch", result);
+
+  if (result.status !== 200)
+    throw new Error("no se cargaron datos del servidor");
+
+  const allProduct = await result.data.map((client: any) => {
+    return client.products;
+  });
+  return allProduct;
 };

@@ -4,3 +4,4 @@ export { ResponseFirebaseDTO } from "./responseFirebaseDTO";
 export { CookiesDTO } from "./cookies.dto";
 export { dataCookiesDTO } from "./dataCookies.dto";
 export { SignAuthRegisterDTO } from "./signAuth.dto";
+export { ClientsDTO } from "./clientsDTO";

@@ -6,26 +6,31 @@ import Cookies from "universal-cookie";
 // Componentes
 import { HOME, SIGNAUTH, HOME_USER, REMOTE_API } from "../constants/routes";
 import { Navigation } from "../components/common";
-import { Basket } from "../components/basket";
 import Home from "../views/Home";
 import SignAuth from "../views/Inicio/SignAuth";
-import { userDTO, productDTO } from "../dto";
+import { userDTO, productDTO, ClientsDTO } from "../dto";
 import HomeUser from "../views/HomeUser";
 import { FetchProductsForClient } from "../resolvers/fetch";
 import axios from "axios";
 
 const AppRouter: React.FC = () => {
-  const apiClient = axios.create({
-    baseURL: REMOTE_API,
-    timeout: 10000, // Tiempo de espera de 10 segundos
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
   const cookies = new Cookies();
-  const [user, setUser] = useState<userDTO>(cookies.get("user"));
+  const [clients_, setClients] = useState<ClientsDTO[]>([]);
+  const [user, setUser] = useState<userDTO>(cookies.get("user") || {});
   const [products, setProducts] = useState<productDTO[]>([]); //productos a la venta
   const [featuredProducts, setFeaturedProducts] = useState<any>([]); //productos mas vendidos a mostrar al cliente
+
+  const start = async () => {
+    try {
+      const allProducts = await FetchProductsForClient(apiClient);
+      setProducts(allProducts);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    start();
+  }, []);
 
   return (
     <Router>
@@ -39,8 +44,6 @@ const AppRouter: React.FC = () => {
                 <Home
                   user={user}
                   setUser={setUser}
-                  featuredProducts={featuredProducts}
-                  setFeaturedProducts={setFeaturedProducts}
                   products={products}
                   setProducts={setProducts}
                   cookies={cookies}

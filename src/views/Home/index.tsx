@@ -1,10 +1,6 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  SHOP,
-  PRODUCTS,
-  SERVICES,
-  MARKETPLACE,
   FEATURED_PRODUCTS,
   RECOMMENDED_PRODUCTS,
   BLACK_DAYS,
@@ -14,27 +10,12 @@ import {
 import bannerImg from "../../static/images/banner/she.png";
 import { useDocumentTitle, useScrollTop } from "../../hooks";
 import { ArrowRightOutlined } from "@ant-design/icons";
-import MessageDisplay from "../../components/common/MessageDisplay";
 import ProductShowcaseGrid from "../../components/product/ProductShowcaseGrid";
-import { rule } from "postcss";
-import { CookiesDTO } from "../../dto";
+import { productDTO, userDTO } from "../../dto";
 
-const Home = ({
-  user,
-  setUser,
-  products,
-  setproducts,
-  featuredProducts,
-  setFeaturedProducts,
-  cookies,
-}: any) => {
+const Home = ({ products }: any) => {
   useDocumentTitle("Liiv-E | By: SIHENG");
   useScrollTop();
-
-  const navigate = useNavigate();
-  useEffect(() => {
-    console.log(cookies.getAll());
-  }, []);
 
   const [ruleta, setRuleta] = useState([
     { header: "Más vendidos", state: true, link: FEATURED_PRODUCTS },
@@ -80,38 +61,20 @@ const Home = ({
             </Link>
           </div>
         </div>
-        <div className="display-header">
-          <h1>Featured Products</h1>
-          <Link to={FEATURED_PRODUCTS}>See All</Link>
-        </div>
-        <div className="ProductShowcaseGrid-container">
-          {featuredProducts.length > 0 ? (
-            featuredProducts.map((item: any, product: any) => {
-              <div key={item} className="ProductShowcaseGrid">
-                <ProductShowcaseGrid product={product} />
-              </div>;
-            })
-          ) : (
-            <div className="ProductShowcaseGrid">No existen productos aún</div>
-          )}
-        </div>{" "}
-        <div className="display-header">
-          <h1>Recommended Products</h1>
-          <Link to={RECOMMENDED_PRODUCTS}>See All</Link>
-        </div>
-        <div className="ProductShowcaseGrid-container">
-          {products.length > 0 ? (
-            products.map((item: any, product: any) => {
-              <div key={item} className="ProductShowcaseGrid-item">
-                <ProductShowcaseGrid products={product} />
-              </div>;
-            })
-          ) : (
-            <div className="ProductShowcaseGrid">
-              No existen productos recomendados aún
-            </div>
-          )}
-        </div>
+        <section>
+          <h1>Products</h1>
+          <div className="ProductShowcase">
+            {products.length > 0 ? (
+              products.map((product: any) => {
+                return product.map((pdct: productDTO, item: number) => {
+                  return <ProductShowcaseGrid key={item} product={pdct} />;
+                });
+              })
+            ) : (
+              <div className="ProductShowcase">No existen productos aún</div>
+            )}
+          </div>
+        </section>
       </div>
     </main>
   );

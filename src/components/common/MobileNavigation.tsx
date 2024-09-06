@@ -5,12 +5,25 @@ import logo from "../../static/logo/logo4.png";
 import BasketToggle from "../basket/BasketToggle";
 import Badge from "./Badge";
 import UserAvatar from "../../views/account/components/UserAvatar";
-import { ShoppingOutlined } from "@ant-design/icons";
+import {
+  BulbOutlined,
+  ClusterOutlined,
+  EnvironmentOutlined,
+  GiftOutlined,
+  InboxOutlined,
+  ProductOutlined,
+  QuestionCircleOutlined,
+  SettingOutlined,
+  ShopOutlined,
+  ShoppingCartOutlined,
+  ShoppingOutlined,
+  ThunderboltOutlined,
+  TruckOutlined,
+} from "@ant-design/icons";
 
 const MobileNavigation = ({
   isOpen,
   toggleMenu,
-  basketLength,
   user,
   disabledPaths,
   pathname,
@@ -26,16 +39,70 @@ const MobileNavigation = ({
       </button>
       <ul className="mobile-nav-menu">
         <li>
-          <Link to={ROUTE.SHOP}>SHOP</Link>
+          <Link onClick={toggleMenu} to={ROUTE.SHOP}>
+            <ShopOutlined />
+            SHOP
+          </Link>
         </li>
         <li>
-          <Link to={ROUTE.FEATURED_PRODUCTS}>PRODUCTS</Link>
+          <Link onClick={toggleMenu} to={ROUTE.FEATURED_PRODUCTS}>
+            <InboxOutlined />
+            PRODUCTOS
+          </Link>
         </li>
         <li>
-          <Link to={ROUTE.SERVICES}>SERVICES</Link>
+          <Link onClick={toggleMenu} to={ROUTE.SERVICES}>
+            <ClusterOutlined />
+            SERVICIOS
+          </Link>
         </li>
         <li>
-          <Link to={ROUTE.MARKETPLACE}>MARKETPLACE</Link>
+          <Link onClick={toggleMenu} to={ROUTE.MARKETPLACE}>
+            <ShoppingCartOutlined />
+            MARKETPLACE
+          </Link>
+        </li>
+        <li>
+          <Link onClick={toggleMenu} to={ROUTE.SENDGIFT}>
+            <ThunderboltOutlined />
+            OFERTAS Y BLACKDAY
+          </Link>
+        </li>
+        <li>
+          <Link onClick={toggleMenu} to={ROUTE.SENDGIFT}>
+            <GiftOutlined />
+            ENVÍA UN REGALO
+          </Link>
+        </li>
+        <li>
+          <Link onClick={toggleMenu} to={ROUTE.SENDGIFT}>
+            <EnvironmentOutlined />
+            MAPA GPS
+          </Link>
+        </li>
+        <li>
+          <Link onClick={toggleMenu} to={ROUTE.SENDGIFT}>
+            <TruckOutlined />
+            ENVÍO DE MERCANCÍA
+          </Link>
+        </li>
+        <li>
+          <Link onClick={toggleMenu} to={ROUTE.SENDGIFT}>
+            <SettingOutlined />
+            AJUSTES
+          </Link>
+        </li>
+        <li>
+          <Link onClick={toggleMenu} to={ROUTE.SENDGIFT}>
+            <QuestionCircleOutlined />
+            AYUDA
+          </Link>
+        </li>
+        <li>
+          <Link onClick={toggleMenu} to={ROUTE.SENDGIFT}>
+            <BulbOutlined />
+            Algo por mejorar? cuéntanos
+          </Link>
         </li>
       </ul>
       <div className="mobile-actions">
@@ -52,7 +119,9 @@ const MobileNavigation = ({
           <UserAvatar />
         ) : (
           <>
-            <Link to={ROUTE.SIGNAUTH}>Sign In</Link>
+            <Link onClick={toggleMenu} to={ROUTE.SIGNAUTH}>
+              Sign In
+            </Link>
           </>
         )}
       </div>

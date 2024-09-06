@@ -36,7 +36,6 @@ function ProductShowcaseGrid({ product }: any) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  console.log(product);
 
   return (
     <Card sx={{ maxWidth: 345 }}>
